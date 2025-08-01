@@ -1,4 +1,4 @@
-﻿namespace VitoriaAirlinesMAUI
+﻿namespace VitoriaAirlinesMAUI.View
 {
     public partial class MainPage : ContentPage
     {
