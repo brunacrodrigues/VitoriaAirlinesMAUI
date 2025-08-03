@@ -10,14 +10,19 @@
 
      <!-- Página de login (inicial) -->
     <ShellContent
-        Title="Login"
         ContentTemplate="{DataTemplate views:LoginPage}"
         Route="LoginPage" />
 
     <!-- Página principal após login -->
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
+
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:ForgotPasswordPage}"
+        Route="ForgotPasswordPage"  />
+
+
 
 </Shell>

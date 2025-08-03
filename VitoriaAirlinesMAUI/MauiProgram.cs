@@ -11,6 +11,7 @@ namespace VitoriaAirlinesMAUI
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -24,9 +25,20 @@ namespace VitoriaAirlinesMAUI
                 });
 
 
+            //builder.Services.AddHttpClient("VitoriaAPI", client =>
+            //{
+            //    client.BaseAddress = new Uri("http://10.0.2.2:5283/");
+            //});
+
+
+            //builder.Services.AddHttpClient("VitoriaAPI", client =>
+            //{
+            //    client.BaseAddress = new Uri("http://10.0.2.2:5283/");
+            //});
+
             builder.Services.AddHttpClient("VitoriaAPI", client =>
             {
-                client.BaseAddress = new Uri("http://10.0.2.2:5283/");
+                client.BaseAddress = new Uri("http://192.168.1.16:5283/");
             });
 
 
@@ -40,8 +52,10 @@ namespace VitoriaAirlinesMAUI
 
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();
-
-
+            builder.Services.AddTransient<ForgotPasswordPage>();
+            builder.Services.AddTransient<ForgotPasswordViewModel>();
+            builder.Services.AddTransient<ResetPasswordPage>();
+            builder.Services.AddTransient<ResetPasswordViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -26,13 +26,15 @@
                             <RowDefinition Height="Auto"/>
                             <!-- 3: Password -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 4: Remember Me -->
+                            <!-- 4: Forgot Password -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 5: Error -->
+                            <!-- 5: Remember Me -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 6: Login Button -->
+                            <!-- 6: Error -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 7: Loading -->
+                            <!-- 7: Login Button -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 8: Loading -->
                         </Grid.RowDefinitions>
 
                         <!-- Title -->
@@ -100,9 +102,22 @@
                                          Margin="0,0,10,0" />
                         </Grid>
 
+                        <!-- Forgot Password link -->
+                        <Label Grid.Row="4"
+                               Text="Forgot Password?"
+                               TextColor="#f0b400"
+                               FontSize="13"
+                               FontFamily="OutfitRegular"
+                               HorizontalOptions="End"
+                               VerticalOptions="Center"
+                               Margin="0,-8,2,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateToForgotPasswordCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
 
                         <!-- Remember Me -->
-                        <HorizontalStackLayout Grid.Row="4"
+                        <HorizontalStackLayout Grid.Row="5"
                                                HorizontalOptions="Start">
                             <CheckBox IsChecked="{Binding RememberMe}" />
                             <Label Text="Remember Me"
@@ -112,7 +127,7 @@
                         </HorizontalStackLayout>
 
                         <!-- Error -->
-                        <Label Grid.Row="5"
+                        <Label Grid.Row="6"
                                Text="{Binding ErrorMessage}"
                                TextColor="#f8f8f8"
                                BackgroundColor="#850d1c"
@@ -123,7 +138,7 @@
                                HorizontalTextAlignment="Center" />
 
                         <!-- Login Button -->
-                        <Button Grid.Row="6"
+                        <Button Grid.Row="7"
                                 Text="Login"
                                 Command="{Binding LoginCommand}"
                                 BackgroundColor="#4B0012"
@@ -135,7 +150,7 @@
                                 IsEnabled="{Binding IsNotBusy}" />
 
                         <!-- Loading -->
-                        <ActivityIndicator Grid.Row="7"
+                        <ActivityIndicator Grid.Row="8"
                                            IsRunning="{Binding IsBusy}"
                                            IsVisible="{Binding IsBusy}"
                                            Color="White"

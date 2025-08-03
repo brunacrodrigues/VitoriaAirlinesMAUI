@@ -28,5 +28,26 @@ namespace VitoriaAirlinesMAUI.Services
         }
 
 
+        /// <summary>
+        /// Sends a password recovery request to the API.
+        /// </summary>
+        /// <param name="request">The email to send recovery instructions to.</param>
+        /// <returns>An ApiResponse indicating success or failure.</returns>
+        public async Task<ApiResponse<object?>> ForgotPasswordAsync(RecoverPasswordRequest request)
+        {
+            return await PostAsync<RecoverPasswordRequest, object>("api/auth/forgotpassword", request);
+        }
+
+
+
+        /// <summary>
+        /// Sends a reset password request to the API using a token and new password.
+        /// </summary>
+        /// <param name="request">The reset password data including token, email, and new password.</param>
+        /// <returns>An ApiResponse indicating success or failure.</returns>
+        public async Task<ApiResponse<object?>> ResetPasswordAsync(ResetPasswordRequest request)
+        {
+            return await PostAsync<ResetPasswordRequest, object>("api/auth/resetpassword", request);
+        }
     }
 }

@@ -138,6 +138,15 @@ namespace VitoriaAirlinesMAUI.ViewModel
         }
 
 
+
+        [RelayCommand]
+        private async Task NavigateToForgotPasswordAsync()
+        {
+            await Shell.Current.GoToAsync("///ForgotPasswordPage");
+        }
+
+
+
         /// <summary>
         /// Loads saved credentials from Preferences if "Remember Me" was previously enabled.
         /// </summary>
@@ -167,7 +176,6 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
             return true;
         }
-
 
     }
 }

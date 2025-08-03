@@ -10,5 +10,11 @@ namespace VitoriaAirlinesMAUI.Services.Interfaces
         /// <param name="request">The login request containing email and password.</param>
         /// <returns>An ApiResponse containing the authentication token or an error message.</returns>
         Task<ApiResponse<LoginResponse?>> LoginAsync(LoginRequest request);
+
+
+        Task<ApiResponse<object?>> ForgotPasswordAsync(RecoverPasswordRequest request);
+
+
+        Task<ApiResponse<object?>> ResetPasswordAsync(ResetPasswordRequest request);
     }
 }
