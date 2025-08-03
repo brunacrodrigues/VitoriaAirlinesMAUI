@@ -15,5 +15,11 @@
         /// Expiration time of the issued token.
         /// </summary>
         public DateTime Expiration { get; set; }
+
+
+        /// <summary>
+        /// Role of the authenticated user.
+        /// </summary>
+        public string? Role { get; set; }
     }
 }

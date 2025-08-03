@@ -15,15 +15,15 @@ namespace VitoriaAirlinesMAUI.ViewModel
     public partial class ResetPasswordViewModel : BaseViewModel, IQueryAttributable
     {
 
-        private readonly IAccountService _accountService;
+        private readonly IAuthService _authService;
 
         /// <summary>
         /// Initializes a new instance of the ResetPasswordViewModel class.
         /// </summary>
         /// <param name="accountService">Service for account-related API operations.</param>
-        public ResetPasswordViewModel(IAccountService accountService)
+        public ResetPasswordViewModel(IAuthService accountService)
         {
-            _accountService = accountService;
+            _authService = accountService;
         }
 
 
@@ -191,7 +191,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
             {
                 IsBusy = true;
 
-                var response = await _accountService.ResetPasswordAsync(model);
+                var response = await _authService.ResetPasswordAsync(model);
 
                 if (!response.IsSuccess)
                 {

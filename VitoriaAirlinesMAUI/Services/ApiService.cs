@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using VitoriaAirlinesMAUI.Model;
 
 namespace VitoriaAirlinesMAUI.Services
@@ -20,6 +21,14 @@ namespace VitoriaAirlinesMAUI.Services
         protected ApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+
+            var token = Preferences.Get("Token", string.Empty);
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
+            }
+
         }
 
 

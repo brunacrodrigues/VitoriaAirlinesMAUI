@@ -42,11 +42,11 @@ namespace VitoriaAirlinesMAUI
             });
 
 
-            builder.Services.AddSingleton<IAccountService>(sp =>
+            builder.Services.AddSingleton<IAuthService>(sp =>
             {
                 var factory = sp.GetRequiredService<IHttpClientFactory>();
                 var httpClient = factory.CreateClient("VitoriaAPI");
-                return new AccountService(httpClient);
+                return new AuthService(httpClient);
             });
 
 

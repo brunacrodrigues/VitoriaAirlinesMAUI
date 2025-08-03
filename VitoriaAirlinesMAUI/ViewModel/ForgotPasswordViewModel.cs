@@ -11,17 +11,17 @@ namespace VitoriaAirlinesMAUI.ViewModel
     /// </summary>
     public partial class ForgotPasswordViewModel : BaseViewModel
     {
-        private readonly IAccountService _accountService;
+        private readonly IAuthService _authService;
 
 
         /// <summary>
         /// Initializes a new instance of the ForgotPasswordViewModel class.
         /// </summary>
-        /// <param name="accountService">The service responsible for account-related API operations.</param>
-        public ForgotPasswordViewModel(IAccountService accountService)
+        /// <param name="authService">The service responsible for account-related API operations.</param>
+        public ForgotPasswordViewModel(IAuthService authService)
         {
             Title = "Forgot Password";
-            _accountService = accountService;
+            _authService = authService;
         }
 
 
@@ -58,7 +58,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
             {
                 IsBusy = true;
 
-                var response = await _accountService.ForgotPasswordAsync(request);
+                var response = await _authService.ForgotPasswordAsync(request);
 
                 if (!response.IsSuccess)
                 {

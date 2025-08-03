@@ -10,17 +10,17 @@ namespace VitoriaAirlinesMAUI.ViewModel
     /// </summary>
     public partial class LoginViewModel : BaseViewModel
     {
-        private readonly IAccountService _accountService;
+        private readonly IAuthService _authService;
 
 
         /// <summary>
         /// Initializes a new instance of the LoginViewModel with injected dependencies.
         /// </summary>
         /// <param name="accountService">The service responsible for account-related API operations.</param>
-        public LoginViewModel(IAccountService accountService)
+        public LoginViewModel(IAuthService authtService)
         {
             Title = "Login";
-            _accountService = accountService;
+            _authService = authtService;
             LoadSavedCredentials();
         }
 
@@ -96,7 +96,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
             {
                 IsBusy = true;
 
-                var response = await _accountService.LoginAsync(new LoginRequest
+                var response = await _authService.LoginAsync(new LoginRequest
                 {
                     Username = Email,
                     Password = Password
@@ -109,8 +109,18 @@ namespace VitoriaAirlinesMAUI.ViewModel
                     return;
                 }
 
-                var token = response.Data.Token;
-                Preferences.Set("Token", token);
+
+                if (response.Data.Role != "Customer")
+                {
+                    ErrorMessage = "Only customers can use this application.";
+                    HasError = true;
+                    return;
+                }
+
+
+                Preferences.Set("Token", response.Data.Token);
+                Preferences.Set("UserRole", response.Data.Role);
+
 
                 if (RememberMe)
                 {

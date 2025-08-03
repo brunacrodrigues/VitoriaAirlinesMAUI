@@ -7,13 +7,13 @@ namespace VitoriaAirlinesMAUI.Services
     /// Service for handling account-related API operations such as login.
     /// Inherits common HTTP methods from ApiService.
     /// </summary>
-    public class AccountService : ApiService, IAccountService
+    public class AuthService : ApiService, IAuthService
     {
         /// <summary>
         /// Initializes a new instance of the AccountService with the specified HttpClient.
         /// </summary>
         /// <param name="httpClient">The HttpClient instance used for sending requests.</param>
-        public AccountService(HttpClient httpClient) : base(httpClient) { }
+        public AuthService(HttpClient httpClient) : base(httpClient) { }
 
 
 
