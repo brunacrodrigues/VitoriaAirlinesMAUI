@@ -49,5 +49,19 @@ namespace VitoriaAirlinesMAUI.Services
         {
             return await PostAsync<ResetPasswordRequest, object>("api/auth/resetpassword", request);
         }
+
+
+
+        /// <summary>
+        /// Clears the stored authentication token and user credentials from device preferences,
+        /// effectively logging out the current user.
+        /// </summary>
+        public void Logout()
+        {
+            Preferences.Remove("Token");
+            Preferences.Remove("UserRole");
+            Preferences.Remove("SavedEmail");
+            Preferences.Remove("SavedPassword");
+        }
     }
 }

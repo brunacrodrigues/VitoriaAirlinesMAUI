@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel.DataAnnotations;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
+using VitoriaAirlinesMAUI.View;
 
 namespace VitoriaAirlinesMAUI.ViewModel
 {
@@ -68,7 +69,8 @@ namespace VitoriaAirlinesMAUI.ViewModel
                 }
 
                 await Shell.Current.DisplayAlert("Success", "Check your email for password reset instructions.", "OK");
-                await Shell.Current.GoToAsync("//LoginPage");
+                await Shell.Current.GoToAsync(nameof(LoginPage));
+
             }
             finally
             {

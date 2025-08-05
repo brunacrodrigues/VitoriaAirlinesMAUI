@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
+using VitoriaAirlinesMAUI.View;
 
 namespace VitoriaAirlinesMAUI.ViewModel
 {
@@ -133,7 +134,14 @@ namespace VitoriaAirlinesMAUI.ViewModel
                     Preferences.Remove("SavedPassword");
                 }
 
-                await Shell.Current.GoToAsync("//MainPage");
+                var appShell = ((App)App.Current).Services.GetRequiredService<AppShell>();
+                Application.Current.MainPage = appShell;
+
+                await Task.Delay(100);
+
+                appShell.ConfigureShellForAuthenticatedUser(((App)App.Current).Services);
+
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
 
             }
             catch (Exception ex)
@@ -148,11 +156,14 @@ namespace VitoriaAirlinesMAUI.ViewModel
         }
 
 
-
+        /// <summary>
+        /// Navigates the user to the ForgotPasswordPage using Shell routing.
+        /// </summary>
         [RelayCommand]
         private async Task NavigateToForgotPasswordAsync()
         {
-            await Shell.Current.GoToAsync("///ForgotPasswordPage");
+            await Shell.Current.GoToAsync(nameof(ForgotPasswordPage));
+
         }
 
 

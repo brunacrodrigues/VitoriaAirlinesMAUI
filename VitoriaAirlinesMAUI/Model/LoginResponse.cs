@@ -1,7 +1,8 @@
 ﻿namespace VitoriaAirlinesMAUI.Model
 {
     /// <summary>
-    /// Represents the response received from the API upon successful login.
+    /// Represents the response received from the API upon successful 
+    /// .
     /// </summary>
     public class LoginResponse
     {

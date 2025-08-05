@@ -1,0 +1,165 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             x:Class="VitoriaAirlinesMAUI.View.ProfilePage"
+             Title="{Binding Title}"
+             BackgroundColor="#0e0e0e"
+             Loaded="OnPageLoaded">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <!-- Profile Image -->
+            <Frame BackgroundColor="#1a1a1a" CornerRadius="12" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+
+                    <Image Source="{Binding CurrentImageUrl}"
+       WidthRequest="100"
+       HeightRequest="100"
+       Aspect="AspectFill"
+       BackgroundColor="Gray">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+
+
+                    <Button Text="Change Profile Picture"
+                            Command="{Binding SelectImageCommand}"
+                            BackgroundColor="#D4A437"
+                            TextColor="Black"
+                            FontAttributes="Bold"
+                            CornerRadius="8"
+                            HeightRequest="45" />
+
+                    <CheckBox IsChecked="{Binding RemoveImage}" />
+                    <Label Text="Remove current profile picture"
+                           FontSize="13"
+                           TextColor="White"
+                           VerticalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Profile Form -->
+            <Frame BackgroundColor="#1a1a1a" CornerRadius="12" Padding="20" HasShadow="True">
+                <Grid RowSpacing="20"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+
+                    <!-- First Name -->
+                    <Border Grid.Row="0"
+                            BackgroundColor="#2a2a2a"
+                            StrokeShape="RoundRectangle 8"
+                            Padding="10,0">
+                        <Entry Text="{Binding FirstName}"
+                               Placeholder="First Name"
+                               FontFamily="OutfitRegular"
+                               TextColor="White"
+                               PlaceholderColor="#888"
+                               BackgroundColor="Transparent"
+                               HeightRequest="50"/>
+                    </Border>
+
+                    <!-- Last Name -->
+                    <Border Grid.Row="1"
+                            BackgroundColor="#2a2a2a"
+                            StrokeShape="RoundRectangle 8"
+                            Padding="10,0">
+                        <Entry Text="{Binding LastName}"
+                               Placeholder="Last Name"
+                               FontFamily="OutfitRegular"
+                               TextColor="White"
+                               PlaceholderColor="#888"
+                               BackgroundColor="Transparent"
+                               HeightRequest="50"/>
+                    </Border>
+
+                    <!-- Country -->
+                    <syncfusion:SfComboBox Grid.Row="3"
+                                           ItemsSource="{Binding Countries}"
+                                           SelectedItem="{Binding SelectedCountry}"
+                                           DisplayMemberPath="Name"
+                                           Placeholder="Select nationality"
+                                           TextColor="White"
+                                           BackgroundColor="#2a2a2a"
+                                           FontFamily="OutfitRegular"
+                                           HeightRequest="50">
+
+
+                        <syncfusion:SfComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding FlagImageUrl}"
+                                           WidthRequest="30"
+                                           HeightRequest="20"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start"
+                                           Aspect="AspectFit"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Name}"
+                                           TextColor="White"
+                                           FontFamily="OutfitRegular"
+                                           VerticalOptions="Center"
+                                           FontSize="14"/>
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusion:SfComboBox.ItemTemplate>
+                    </syncfusion:SfComboBox>
+
+                    <!-- Passport Number -->
+                    <Border Grid.Row="4"
+                            BackgroundColor="#2a2a2a"
+                            StrokeShape="RoundRectangle 8"
+                            Padding="10,0">
+                        <Entry Text="{Binding PassportNumber}"
+                               Placeholder="Passport Number"
+                               FontFamily="OutfitRegular"
+                               TextColor="White"
+                               PlaceholderColor="#888"
+                               BackgroundColor="Transparent"
+                               HeightRequest="50"/>
+                    </Border>
+                </Grid>
+            </Frame>
+
+            <!-- Error -->
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="#f8f8f8"
+                   BackgroundColor="#850d1c"
+                   IsVisible="{Binding HasError}"
+                   Padding="10"
+                   FontSize="12"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Save Button -->
+            <Button Text="Save"
+                    Command="{Binding UpdateProfileCommand}"
+                    BackgroundColor="#4B0012"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    IsEnabled="{Binding IsNotBusy}" />
+
+
+            <Button Text="Logout"
+        Command="{Binding LogoutCommand}"
+        BackgroundColor="#D32F2F"
+        TextColor="White"
+        FontAttributes="Bold"
+        CornerRadius="8"
+        HeightRequest="50"/>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="White"
+                               HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

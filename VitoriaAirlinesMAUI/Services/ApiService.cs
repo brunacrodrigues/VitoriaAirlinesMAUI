@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using VitoriaAirlinesMAUI.Model;
 
 namespace VitoriaAirlinesMAUI.Services
@@ -21,13 +20,6 @@ namespace VitoriaAirlinesMAUI.Services
         protected ApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-
-            var token = Preferences.Get("Token", string.Empty);
-            if (!string.IsNullOrWhiteSpace(token))
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token);
-            }
 
         }
 
@@ -112,6 +104,32 @@ namespace VitoriaAirlinesMAUI.Services
                 return ApiResponse<TResult?>.Fail(ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// Sends an HTTP PUT request with multipart/form-data content and returns a deserialized ApiResponse.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the expected response data.</typeparam>
+        /// <param name="uri">The URI to send the PUT request to.</param>
+        /// <param name="content">The multipart/form-data content to send.</param>
+        /// <returns>An ApiResponse containing the result or an error message.</returns>
+        protected async Task<ApiResponse<TResult?>> PutMultipartAsync<TResult>(string uri, MultipartFormDataContent content)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsync(uri, content);
+                if (!response.IsSuccessStatusCode)
+                    return ApiResponse<TResult?>.Fail(await response.Content.ReadAsStringAsync());
+
+                var data = await response.Content.ReadFromJsonAsync<TResult>();
+                return ApiResponse<TResult?>.Success(data);
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<TResult?>.Fail(ex.Message);
+            }
+        }
+
 
     }
 }

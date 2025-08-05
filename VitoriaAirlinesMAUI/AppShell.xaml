@@ -1,28 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="VitoriaAirlinesMAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:VitoriaAirlinesMAUI"
     xmlns:views="clr-namespace:VitoriaAirlinesMAUI.View"
     Shell.FlyoutBehavior="Disabled"
+    Shell.BackgroundColor="#0e0e0e"
+    Shell.TitleColor="#D4A437"
+    Shell.DisabledColor="Gray"
+    Shell.UnselectedColor="#D4A437"
+    Shell.ForegroundColor="#D4A437"
+    Shell.TabBarBackgroundColor="#4B0012"
+    Shell.TabBarTitleColor="#D4A437"
+    Shell.TabBarUnselectedColor="#D4A437"
     Title="VitoriaAirlinesMAUI">
 
-     <!-- Página de login (inicial) -->
+
+    <ShellContent
+        Route="DummyPage"
+        ContentTemplate="{DataTemplate views:DummyPage}" />
+    
     <ShellContent
         ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="LoginPage" />
-
-    <!-- Página principal após login -->
-    <ShellContent
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
-
+        Route="LoginPage"
+        IsVisible="False" />
 
     <ShellContent
         ContentTemplate="{DataTemplate views:ForgotPasswordPage}"
-        Route="ForgotPasswordPage"  />
+        Route="ForgotPasswordPage"
+        IsVisible="False" />
 
-
-
+    <ShellContent
+        ContentTemplate="{DataTemplate views:ResetPasswordPage}"
+        Route="ResetPasswordPage"
+        IsVisible="False" />
 </Shell>

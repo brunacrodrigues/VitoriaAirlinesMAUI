@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
+using VitoriaAirlinesMAUI.Helpers;
 using VitoriaAirlinesMAUI.Services;
 using VitoriaAirlinesMAUI.Services.Interfaces;
 using VitoriaAirlinesMAUI.View;
@@ -25,28 +27,26 @@ namespace VitoriaAirlinesMAUI
                 });
 
 
-            //builder.Services.AddHttpClient("VitoriaAPI", client =>
-            //{
-            //    client.BaseAddress = new Uri("http://10.0.2.2:5283/");
-            //});
+            builder.Services.AddTransient<AuthHeaderHandler>();
 
 
-            //builder.Services.AddHttpClient("VitoriaAPI", client =>
-            //{
-            //    client.BaseAddress = new Uri("http://10.0.2.2:5283/");
-            //});
+            var baseUri = new Uri("http://10.0.2.2:5283/");
 
-            builder.Services.AddHttpClient("VitoriaAPI", client =>
+
+            builder.Services.AddHttpClient<IProfileService, ProfileService>(client =>
             {
-                client.BaseAddress = new Uri("http://192.168.1.16:5283/");
-            });
+                client.BaseAddress = baseUri;
+            }).AddHttpMessageHandler<AuthHeaderHandler>();
 
-
-            builder.Services.AddSingleton<IAuthService>(sp =>
+            builder.Services.AddHttpClient<ICountryService, CountryService>(client =>
             {
-                var factory = sp.GetRequiredService<IHttpClientFactory>();
-                var httpClient = factory.CreateClient("VitoriaAPI");
-                return new AuthService(httpClient);
+                client.BaseAddress = baseUri;
+            }).AddHttpMessageHandler<AuthHeaderHandler>();
+
+
+            builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
+            {
+                client.BaseAddress = baseUri;
             });
 
 
@@ -56,6 +56,18 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddTransient<ForgotPasswordViewModel>();
             builder.Services.AddTransient<ResetPasswordPage>();
             builder.Services.AddTransient<ResetPasswordViewModel>();
+            builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<EditProfileViewModel>();
+            builder.Services.AddTransient<ChangePasswordPage>();
+            builder.Services.AddTransient<ChangePasswordViewModel>();
+            builder.Services.AddTransient<MainPage>();
+
+
+            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddSingleton<App>();
+
+
+            builder.ConfigureSyncfusionCore();
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -65,3 +77,4 @@ namespace VitoriaAirlinesMAUI
         }
     }
 }
+

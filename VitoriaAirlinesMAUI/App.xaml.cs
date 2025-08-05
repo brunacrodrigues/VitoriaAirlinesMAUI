@@ -8,17 +8,77 @@ namespace VitoriaAirlinesMAUI
     /// </summary>
     public partial class App : Application
     {
+        private readonly IServiceProvider _serviceProvider;
+
+        public static IServiceProvider StaticServiceProvider { get; private set; }
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="App"/> class.
-        /// Sets up the shell and registers application routes.
+        /// Initializes a new instance of the App class.
+        /// Sets up the shell and initial navigation logic.
         /// </summary>
-        public App()
+        public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _serviceProvider = serviceProvider;
+            StaticServiceProvider = serviceProvider;
 
-            MainPage = new AppShell();
-            Routing.RegisterRoute("ResetPasswordPage", typeof(ResetPasswordPage));
+            InitializeRouting();
+
+            SetRootPageBasedOnAuthentication();
+
         }
+
+
+        /// <summary>
+        /// Provides access to the application's configured services for dependency injection.
+        /// </summary>
+        public IServiceProvider Services => _serviceProvider;
+
+
+
+        /// <summary>
+        /// Registers any custom routes used in the application.
+        /// </summary>
+        private void InitializeRouting()
+        {
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(ForgotPasswordPage), typeof(ForgotPasswordPage));
+            Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));
+        }
+
+
+
+        /// <summary>
+        /// Sets the initial root page based on whether a valid authentication token is stored.
+        /// If a token exists, navigates to the authenticated user shell and home page.
+        /// Otherwise, navigates to the login page inside a navigation stack.
+        /// </summary>
+        public static void SetRootPageBasedOnAuthentication()
+        {
+
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                var token = Preferences.Get("Token", string.Empty);
+
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    var appShell = StaticServiceProvider.GetRequiredService<AppShell>();
+                    Application.Current.MainPage = appShell;
+
+                    await Task.Delay(100);
+
+                    appShell.ConfigureShellForAuthenticatedUser(StaticServiceProvider);
+
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+                else
+                {
+                    var loginPage = StaticServiceProvider.GetRequiredService<LoginPage>();
+                    Application.Current.MainPage = new NavigationPage(loginPage);
+                }
+            });
+        }
+
 
 
         /// <summary>
@@ -38,7 +98,8 @@ namespace VitoriaAirlinesMAUI
 
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
-                    await Shell.Current.GoToAsync($"ResetPasswordPage?token={token}&email={email}");
+                    //await Shell.Current.GoToAsync($"ResetPasswordPage?token={token}&email={email}");
+                    await Shell.Current.GoToAsync($"{nameof(ResetPasswordPage)}?token={token}&email={email}");
 
                 });
             }
@@ -53,20 +114,18 @@ namespace VitoriaAirlinesMAUI
         /// <param name="uri">The URI containing deep link information.</param>
         public void HandleAppLink(Uri uri)
         {
-
             if (uri.Scheme == "vitoriaairlinesapp" && uri.Host == "resetpassword")
             {
                 var query = System.Web.HttpUtility.ParseQueryString(uri.Query.TrimStart('?'));
                 var token = query["token"];
                 var email = query["email"];
 
-
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     await Task.Delay(500);
-                    var route = $"ResetPasswordPage?token={token}&email={email}";
-                    System.Diagnostics.Debug.WriteLine($"[HANDLE] Navigating to: {route}");
+                    var route = $"{nameof(ResetPasswordPage)}?token={token}&email={email}";
                     await Shell.Current.GoToAsync(route);
+
                 });
             }
             else
@@ -74,8 +133,5 @@ namespace VitoriaAirlinesMAUI
                 System.Diagnostics.Debug.WriteLine("[HANDLE] Invalid deep link format.");
             }
         }
-
-
-
     }
 }

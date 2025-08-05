@@ -1,8 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary 
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:themes="clr-namespace:Syncfusion.Maui.Core.Themes;assembly=Syncfusion.Maui.Inputs">
+
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <themes:SfComboBoxStyles />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="SfComboBoxDropdownBackground">#2a2a2a</Color>
+    <Color x:Key="SfComboBoxDropdownTextColor">White</Color>
+    <Color x:Key="SfComboBoxDropdownBorder">#4B0012</Color>
+    <Color x:Key="SfComboBoxDropdownSelectedItemBackground">#4B0012</Color>
+    <Color x:Key="SfComboBoxNormalDropdownItemsTextColor">White</Color>
+    <Color x:Key="SfComboBoxNormalDropdownItemsHighlightTextColor">#D4A437</Color>
+
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />

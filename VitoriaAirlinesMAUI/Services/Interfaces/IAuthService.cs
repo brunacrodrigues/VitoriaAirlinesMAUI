@@ -33,5 +33,13 @@ namespace VitoriaAirlinesMAUI.Services.Interfaces
         /// including success or an error message.
         /// </returns>
         Task<ApiResponse<object?>> ResetPasswordAsync(ResetPasswordRequest request);
+
+
+
+        /// <summary>
+        /// Logs out the current user by clearing stored authentication data,
+        /// such as the JWT token and saved credentials.
+        /// </summary>
+        void Logout();
     }
 }

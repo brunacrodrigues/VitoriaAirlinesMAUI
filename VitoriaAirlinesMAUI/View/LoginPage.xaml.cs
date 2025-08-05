@@ -8,5 +8,13 @@ public partial class LoginPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
+
+        Shell.SetBackButtonBehavior(this, new BackButtonBehavior
+        {
+            IsEnabled = false,
+            IsVisible = false
+        });
     }
+
+
 }

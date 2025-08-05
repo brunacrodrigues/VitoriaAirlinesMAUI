@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
+using VitoriaAirlinesMAUI.View;
 
 namespace VitoriaAirlinesMAUI.ViewModel
 {
@@ -133,7 +134,6 @@ namespace VitoriaAirlinesMAUI.ViewModel
             {
                 try
                 {
-                    // Base64Url-decode
                     var bytes = WebEncoders.Base64UrlDecode(b64);
                     Token = Encoding.UTF8.GetString(bytes);
                 }
@@ -201,7 +201,10 @@ namespace VitoriaAirlinesMAUI.ViewModel
                 }
 
                 await Shell.Current.DisplayAlert("Success", "Your password has been reset.", "OK");
-                await Shell.Current.GoToAsync("//LoginPage");
+                var appShell = (App.Current as App)!.Services.GetRequiredService<AppShell>();
+                Application.Current.MainPage = appShell;
+                await Shell.Current.GoToAsync(nameof(LoginPage));
+
             }
             finally
             {
