@@ -23,7 +23,7 @@ namespace VitoriaAirlinesMAUI
                 {
                     Title = "Home",
                     Route = nameof(MainPage),
-                    //Icon = "home.png",
+                    Icon = "home-icon.png",
                     ContentTemplate = new DataTemplate(() =>
                         serviceProvider.GetRequiredService<MainPage>())
                 },
@@ -43,6 +43,30 @@ namespace VitoriaAirlinesMAUI
                         new ShellContent
                         {
                             Title = "Change Password",
+                            Route = nameof(ChangePasswordPage),
+                            ContentTemplate = new DataTemplate(() =>
+                                serviceProvider.GetRequiredService<ChangePasswordPage>())
+                        }
+                    }
+                },
+
+                new ShellSection
+                {
+                    Title = "My Flights",
+                    Icon = "myflights-icon.png",
+                    Items =
+                    {
+                        new ShellContent
+                        {
+                            Title = "Upcoming Flights",
+                            Route = nameof(UpcomingFlightsPage),
+                            ContentTemplate = new DataTemplate(() =>
+                                serviceProvider.GetRequiredService<UpcomingFlightsPage>())
+                        },
+                        new ShellContent
+                        {
+                            // TODO CHANGE TO FLIGHTS HISTORY PAGE
+                            Title = "Past Flights",
                             Route = nameof(ChangePasswordPage),
                             ContentTemplate = new DataTemplate(() =>
                                 serviceProvider.GetRequiredService<ChangePasswordPage>())

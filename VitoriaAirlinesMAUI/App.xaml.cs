@@ -160,10 +160,10 @@ namespace VitoriaAirlinesMAUI
                 var appShell = _serviceProvider.GetRequiredService<AppShell>();
                 MainPage = appShell;
 
-                // Configure tabs now
+
                 appShell.ConfigureShellForAuthenticatedUser(_serviceProvider);
 
-                // Optional async nav AFTER MainPage is set
+
                 _ = Shell.Current.GoToAsync($"//{nameof(MainPage)}");
             }
             else
@@ -172,6 +172,7 @@ namespace VitoriaAirlinesMAUI
                 MainPage = new NavigationPage(loginPage);
             }
         }
+
 
         public IServiceProvider Services => _serviceProvider;
 

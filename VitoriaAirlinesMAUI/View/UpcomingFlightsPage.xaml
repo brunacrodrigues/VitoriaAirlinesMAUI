@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VitoriaAirlinesMAUI.View.UpcomingFlightsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0e0e0e"
+    Title="{Binding Title}"
+    Loaded="ContentPage_Loaded">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="10,8"/>
+            <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+            <Setter Property="BorderColor" Value="#4B0012"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*" Padding="12">
+        <!-- header -->
+        <VerticalStackLayout Spacing="2">
+            <Label Text="{Binding Title}" FontSize="22" FontAttributes="Bold"/>
+            <Label Text="Here you can view your future trips." Opacity="0.7"/>
+        </VerticalStackLayout>
+
+        <!-- list with pull-to-refresh -->
+        <RefreshView Grid.Row="1"
+                     Command="{Binding RefreshAsyncCommand}"
+                     IsRefreshing="{Binding IsBusy}">
+            <CollectionView
+                ItemsSource="{Binding Tickets}"
+                SelectionMode="None"
+                Margin="0,8,0,0">
+                <CollectionView.EmptyView>
+                    <Label Text="No upcoming flights found."
+                           TextColor="#cccccc"
+                           HorizontalOptions="Center"
+                           Margin="20"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame>
+                            <VerticalStackLayout Spacing="0">
+                                <!-- Header -->
+                                <Grid BackgroundColor="#4B0012" Padding="14,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding FlightNumber}" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Status}"
+                                           Padding="10,4"
+                                           BackgroundColor="#D4A437"
+                                           TextColor="Black"
+                                           FontSize="12"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+
+                                <!-- Body -->
+                                <Grid BackgroundColor="#A67C26" Padding="14" RowDefinitions="Auto,Auto,Auto,Auto">
+                                    <HorizontalStackLayout Grid.Row="0" Spacing="8">
+                                        <Image HeightRequest="16" WidthRequest="24" Aspect="AspectFill"
+               Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}" />
+                                        <Label Text="{Binding OriginAirport}" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Row="1" Spacing="8">
+                                        <Image HeightRequest="16" WidthRequest="24" Aspect="AspectFill"
+               Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}" />
+                                        <Label Text="{Binding DestinationAirport}" />
+                                    </HorizontalStackLayout>
+                                    
+                                    <Label Grid.Row="2"
+                                           Text="{Binding DepartureUtc, StringFormat='Departure: {0:dd/MM/yyyy HH:mm}'}" />
+                                    <Grid Grid.Row="3" ColumnDefinitions="*,Auto" Margin="0,6,0,0">
+                                        <Label Text="{Binding Seat}" />
+                                        <Label Grid.Column="1"
+                                               Text="{Binding PricePaid, StringFormat='€ {0:0.00}'}" />
+                                    </Grid>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>
