@@ -162,7 +162,10 @@ namespace VitoriaAirlinesMAUI.ViewModel
         [RelayCommand]
         private async Task NavigateToForgotPasswordAsync()
         {
-            await Shell.Current.GoToAsync(nameof(ForgotPasswordPage));
+            //await Shell.Current.GoToAsync(nameof(ForgotPasswordPage));
+            var sp = ((App)Application.Current).Services;
+            var page = sp.GetRequiredService<ForgotPasswordPage>();
+            await Shell.Current.Navigation.PushAsync(page);
 
         }
 

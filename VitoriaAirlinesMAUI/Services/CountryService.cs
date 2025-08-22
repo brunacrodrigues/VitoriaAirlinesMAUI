@@ -6,13 +6,19 @@ namespace VitoriaAirlinesMAUI.Services
     /// <summary>
     /// Service for retrieving countries from the API.
     /// </summary>
-    public class CountryService : ApiService, ICountryService
+    public class CountryService : ICountryService
     {
+        private readonly IApiService _apiService;
+
+
         /// <summary>
-        /// Initializes a new instance of the CountryService with the specified HttpClient.
+        /// Initializes a new instance of the CountryServuce with the specified API service.
         /// </summary>
-        /// <param name="httpClient">The HttpClient used for sending requests.</param>
-        public CountryService(HttpClient httpClient) : base(httpClient) { }
+        /// <param name="apiService">The API service used to send HTTP requests to the backend.</param>
+        public CountryService(IApiService apiService)
+        {
+            _apiService = apiService;
+        }
 
 
         /// <summary>
@@ -21,7 +27,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <returns>An ApiResponse containing the list of countries or an error message.</returns>
         public async Task<ApiResponse<List<Country>?>> GetCountriesAsync()
         {
-            return await GetAsync<List<Country>>("api/countries");
+            return await _apiService.GetAsync<List<Country>>("api/countries");
         }
     }
 }

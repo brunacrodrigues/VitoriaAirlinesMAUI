@@ -33,21 +33,18 @@ namespace VitoriaAirlinesMAUI
             var baseUri = new Uri("http://10.0.2.2:5283/");
 
 
-            builder.Services.AddHttpClient<IProfileService, ProfileService>(client =>
-            {
-                client.BaseAddress = baseUri;
-            }).AddHttpMessageHandler<AuthHeaderHandler>();
 
-            builder.Services.AddHttpClient<ICountryService, CountryService>(client =>
-            {
-                client.BaseAddress = baseUri;
-            }).AddHttpMessageHandler<AuthHeaderHandler>();
+            builder.Services
+               .AddHttpClient<IApiService, ApiService>(client =>
+               {
+                   client.BaseAddress = baseUri;
+               })
+               .AddHttpMessageHandler<AuthHeaderHandler>();
 
 
-            builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
-            {
-                client.BaseAddress = baseUri;
-            });
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IProfileService, ProfileService>();
+            builder.Services.AddScoped<ICountryService, CountryService>();
 
 
             builder.Services.AddTransient<LoginPage>();
@@ -64,7 +61,6 @@ namespace VitoriaAirlinesMAUI
 
 
             builder.Services.AddSingleton<AppShell>();
-            builder.Services.AddSingleton<App>();
 
 
             builder.ConfigureSyncfusionCore();

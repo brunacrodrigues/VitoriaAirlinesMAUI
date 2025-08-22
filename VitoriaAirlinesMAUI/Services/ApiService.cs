@@ -1,12 +1,13 @@
 ﻿using System.Net.Http.Json;
 using VitoriaAirlinesMAUI.Model;
+using VitoriaAirlinesMAUI.Services.Interfaces;
 
 namespace VitoriaAirlinesMAUI.Services
 {
     /// <summary>
     /// Base class for API service classes, providing common HTTP operations.
     /// </summary>
-    public abstract class ApiService
+    public class ApiService : IApiService
     {
         /// <summary>
         /// The HttpClient instance used for sending HTTP requests.
@@ -17,7 +18,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <summary>
         /// The HttpClient instance used for sending HTTP requests.
         /// </summary>
-        protected ApiService(HttpClient httpClient)
+        public ApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
 
@@ -30,7 +31,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <typeparam name="T">The type of the expected response data.</typeparam>
         /// <param name="uri">The URI to send the GET request to.</param>
         /// <returns>An ApiResponse containing the data or error message.</returns>
-        protected async Task<ApiResponse<T?>> GetAsync<T>(string uri)
+        public async Task<ApiResponse<T?>> GetAsync<T>(string uri)
         {
             try
             {
@@ -58,7 +59,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <param name="uri">The URI to send the POST request to.</param>
         /// <param name="content">The content to include in the POST request.</param>
         /// <returns>An ApiResponse containing the result or error message.</returns>
-        protected async Task<ApiResponse<TResult?>> PostAsync<TRequest, TResult>(string uri, TRequest content)
+        public async Task<ApiResponse<TResult?>> PostAsync<TRequest, TResult>(string uri, TRequest content)
         {
             try
             {
@@ -86,7 +87,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <param name="uri">The URI to send the PUT request to.</param>
         /// <param name="content">The content object to include in the request body.</param>
         /// <returns>An ApiResponse containing the result or an error message.</returns>
-        protected async Task<ApiResponse<TResult?>> PutAsync<TRequest, TResult>(string uri, TRequest content)
+        public async Task<ApiResponse<TResult?>> PutAsync<TRequest, TResult>(string uri, TRequest content)
         {
             try
             {
@@ -113,7 +114,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <param name="uri">The URI to send the PUT request to.</param>
         /// <param name="content">The multipart/form-data content to send.</param>
         /// <returns>An ApiResponse containing the result or an error message.</returns>
-        protected async Task<ApiResponse<TResult?>> PutMultipartAsync<TResult>(string uri, MultipartFormDataContent content)
+        public async Task<ApiResponse<TResult?>> PutMultipartAsync<TResult>(string uri, MultipartFormDataContent content)
         {
             try
             {

@@ -306,7 +306,13 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
             _authService.Logout();
 
-            App.SetRootPageBasedOnAuthentication();
+            //App.SetRootPageBasedOnAuthentication();
+            // Set the LoginPage as the new root (no async/await needed here)
+            var app = Application.Current as App;
+            var sp = app?.Services ?? App.StaticServiceProvider; // usa o que já tens
+
+            var loginPage = sp.GetRequiredService<LoginPage>();
+            Application.Current.MainPage = new NavigationPage(loginPage);
 
         }
     }

@@ -7,13 +7,18 @@ namespace VitoriaAirlinesMAUI.Services
     /// Service for handling account-related API operations such as login.
     /// Inherits common HTTP methods from ApiService.
     /// </summary>
-    public class AuthService : ApiService, IAuthService
+    public class AuthService : IAuthService
     {
+        private readonly IApiService _apiService;
+
         /// <summary>
-        /// Initializes a new instance of the AccountService with the specified HttpClient.
+        /// Initializes a new instance of the AuthService with the specified API service.
         /// </summary>
-        /// <param name="httpClient">The HttpClient instance used for sending requests.</param>
-        public AuthService(HttpClient httpClient) : base(httpClient) { }
+        /// <param name="apiService">The API service used to send HTTP requests to the backend.</param>
+        public AuthService(IApiService apiService)
+        {
+            _apiService = apiService;
+        }
 
 
 
@@ -24,8 +29,9 @@ namespace VitoriaAirlinesMAUI.Services
         /// <returns>An ApiResponse containing the token and expiration info, or an error message.</returns>
         public async Task<ApiResponse<LoginResponse?>> LoginAsync(LoginRequest request)
         {
-            return await PostAsync<LoginRequest, LoginResponse>("api/auth/login", request);
+            return await _apiService.PostAsync<LoginRequest, LoginResponse>("api/auth/login", request);
         }
+
 
 
         /// <summary>
@@ -35,7 +41,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <returns>An ApiResponse indicating success or failure.</returns>
         public async Task<ApiResponse<object?>> ForgotPasswordAsync(RecoverPasswordRequest request)
         {
-            return await PostAsync<RecoverPasswordRequest, object>("api/auth/forgotpassword", request);
+            return await _apiService.PostAsync<RecoverPasswordRequest, object>("api/auth/forgotpassword", request);
         }
 
 
@@ -47,7 +53,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <returns>An ApiResponse indicating success or failure.</returns>
         public async Task<ApiResponse<object?>> ResetPasswordAsync(ResetPasswordRequest request)
         {
-            return await PostAsync<ResetPasswordRequest, object>("api/auth/resetpassword", request);
+            return await _apiService.PostAsync<ResetPasswordRequest, object>("api/auth/resetpassword", request);
         }
 
 

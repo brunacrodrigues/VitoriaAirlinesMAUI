@@ -24,7 +24,7 @@
         Route="LoginPage"
         IsVisible="False" />
 
-    <ShellContent
+    <!--<ShellContent
         ContentTemplate="{DataTemplate views:ForgotPasswordPage}"
         Route="ForgotPasswordPage"
         IsVisible="False" />
@@ -32,5 +32,5 @@
     <ShellContent
         ContentTemplate="{DataTemplate views:ResetPasswordPage}"
         Route="ResetPasswordPage"
-        IsVisible="False" />
+        IsVisible="False" />-->
 </Shell>

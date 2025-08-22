@@ -8,13 +8,18 @@ namespace VitoriaAirlinesMAUI.Services
     /// Service for handling customer profile operations such as retrieving, updating profile, and changing password.
     /// Inherits common HTTP methods from ApiService.
     /// </summary>
-    public class ProfileService : ApiService, IProfileService
+    public class ProfileService : IProfileService
     {
+        private readonly IApiService _apiService;
+
         /// <summary>
-        /// Initializes a new instance of the ProfileService with the specified HttpClient.
+        /// Initializes a new instance of the ProfileService with the specified API service.
         /// </summary>
-        /// <param name="httpClient">The HttpClient instance used for sending requests.</param>
-        public ProfileService(HttpClient httpClient) : base(httpClient) { }
+        /// <param name="apiService">The API service used to send HTTP requests to the backend.</param>
+        public ProfileService(IApiService apiService)
+        {
+            _apiService = apiService;
+        }
 
 
 
@@ -24,7 +29,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <returns>An ApiResponse containing the customer's profile data or an error message.</returns>
         public async Task<ApiResponse<CustomerProfile?>> GetProfileAsync()
         {
-            return await GetAsync<CustomerProfile>("api/profile");
+            return await _apiService.GetAsync<CustomerProfile>("api/profile");
         }
 
 
@@ -51,7 +56,7 @@ namespace VitoriaAirlinesMAUI.Services
                 content.Add(imageContent, "ProfileImage", request.ProfileImageFileName);
             }
 
-            return await PutMultipartAsync<object?>("api/profile", content);
+            return await _apiService.PutMultipartAsync<object?>("api/profile", content);
         }
 
 
@@ -63,7 +68,7 @@ namespace VitoriaAirlinesMAUI.Services
         /// <returns>An ApiResponse indicating success or failure.</returns>
         public async Task<ApiResponse<object?>> ChangePasswordAsync(ChangePasswordRequest request)
         {
-            return await PutAsync<ChangePasswordRequest, object>("api/profile/change-password", request);
+            return await _apiService.PutAsync<ChangePasswordRequest, object>("api/profile/change-password", request);
         }
     }
 }
