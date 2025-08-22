@@ -65,11 +65,10 @@ namespace VitoriaAirlinesMAUI
                         },
                         new ShellContent
                         {
-                            // TODO CHANGE TO FLIGHTS HISTORY PAGE
                             Title = "Past Flights",
-                            Route = nameof(ChangePasswordPage),
+                            Route = nameof(PastFlightsPage),
                             ContentTemplate = new DataTemplate(() =>
-                                serviceProvider.GetRequiredService<ChangePasswordPage>())
+                                serviceProvider.GetRequiredService<PastFlightsPage>())
                         }
                     }
                 }

@@ -6,18 +6,18 @@ using VitoriaAirlinesMAUI.Services.Interfaces;
 
 namespace VitoriaAirlinesMAUI.ViewModel;
 
-public partial class UpcomingFlightsViewModel : BaseViewModel
+public partial class FlightsHistoryViewModel : BaseViewModel
 {
     private readonly ITicketService _ticketService;
-
 
     [ObservableProperty]
     private ObservableCollection<Ticket> tickets = new ObservableCollection<Ticket>();
 
 
-    public UpcomingFlightsViewModel(ITicketService ticketService)
+
+    public FlightsHistoryViewModel(ITicketService ticketService)
     {
-        Title = "My Upcoming Flights";
+        Title = "My Past Flights";
         _ticketService = ticketService;
     }
 
@@ -35,17 +35,17 @@ public partial class UpcomingFlightsViewModel : BaseViewModel
         {
             tickets.Clear();
 
-            var response = await _ticketService.GetMyUpcomingAsync();
+            var response = await _ticketService.GetMyHistoryAsync();
 
             if (!response.IsSuccess || response.Data is null)
             {
                 HasError = true;
-                ErrorMessage = response.Message ?? "Failed to load upcoming flights.";
+                ErrorMessage = response.Message ?? "Failed to load past flights.";
                 return;
             }
 
 
-            foreach (var ticket in response.Data.OrderBy(x => x.DepartureUtc))
+            foreach (var ticket in response.Data.OrderByDescending(x => x.DepartureUtc))
                 tickets.Add(ticket);
 
         }

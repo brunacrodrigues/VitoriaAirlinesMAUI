@@ -61,6 +61,8 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<UpcomingFlightsViewModel>();
             builder.Services.AddTransient<UpcomingFlightsPage>();
+            builder.Services.AddTransient<PastFlightsPage>();
+            builder.Services.AddTransient<FlightsHistoryViewModel>();
 
 
             builder.Services.AddSingleton<AppShell>();
