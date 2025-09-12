@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VitoriaAirlinesMAUI.View.FlightsSearchPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
+    xmlns:model="clr-namespace:VitoriaAirlinesMAUI.Model"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:converters="clr-namespace:VitoriaAirlinesMAUI.Converters"
+    x:DataType="viewmodel:FlightSearchViewModel"
+    BackgroundColor="#0e0e0e"
+    Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <converters:CountryCodeToFlagUrlConverter x:Key="CountryCodeToFlagUrlConverter" />
+
+        <!-- General styles -->
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+            <Setter Property="TitleColor" Value="#cccccc"/>
+            <Setter Property="FontFamily" Value="OpenSansRegular"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="HeightRequest" Value="50"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+            <Setter Property="FontFamily" Value="OpenSansRegular"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="HeightRequest" Value="50"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="10,8"/>
+            <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+            <Setter Property="BorderColor" Value="#4B0012"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#4B0012"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <!-- RadioButton styling for selection indicator -->
+        <Style TargetType="RadioButton">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#D4A437" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <!-- Main Grid Layout -->
+        <Grid Padding="12" RowSpacing="10" 
+              RowDefinitions="Auto,Auto,*,Auto">
+
+            <!-- Row 0: Trip Type Selector (Roundtrip, One-way) -->
+            <Grid Grid.Row="0" ColumnDefinitions="*,*" HeightRequest="40" Margin="0,10,0,10" 
+                  BackgroundColor="#1a1a1a" RowDefinitions="*,2">
+                <RadioButton Content="Roundtrip" IsChecked="{Binding IsRoundTrip}" 
+                           GroupName="TripType" Grid.Column="0" />
+                <RadioButton Content="One-way" IsChecked="{Binding IsOneWayTrip}" 
+                           GroupName="TripType" Grid.Column="1" />
+
+                <BoxView Grid.Row="1" Grid.Column="0" HeightRequest="2" Color="#D4A437"
+                         IsVisible="{Binding IsRoundTrip}" Margin="0,-2,0,0"/>
+                <BoxView Grid.Row="1" Grid.Column="1" HeightRequest="2" Color="#D4A437"
+                         IsVisible="{Binding IsOneWayTrip}" Margin="0,-2,0,0"/>
+            </Grid>
+
+            <!-- Row 1: Search Form Container -->
+            <Frame Grid.Row="1" BackgroundColor="#1a1a1a" BorderColor="#4B0012" 
+                   Padding="20" Margin="0">
+                <!-- Form Content Grid -->
+                <Grid RowSpacing="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                    <!-- Row 0: From Airport Label -->
+                    <Label Grid.Row="0" Text="FROM" TextColor="#cccccc" FontSize="12"/>
+
+                    <!-- Row 1: From Airport Picker -->
+                    <Grid Grid.Row="1" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="50" Margin="0,4">
+                        <Image Grid.Column="0"
+                               Source="{Binding SelectedOriginAirport.CountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
+                               HeightRequest="24" WidthRequest="36" Aspect="AspectFill"
+                               VerticalOptions="Center"
+                               IsVisible="{Binding IsOriginCountryCodeVisible}"/>
+                        <Picker Grid.Column="1" Title="Select Origin Airport"
+                                ItemsSource="{Binding AvailableAirports}"
+                                ItemDisplayBinding="{Binding FullName}"
+                                SelectedItem="{Binding SelectedOriginAirport}"/>
+                    </Grid>
+
+                    <!-- Row 2: To Airport Label -->
+                    <Label Grid.Row="2" Text="TO" TextColor="#cccccc" FontSize="12" Margin="0,5,0,0"/>
+
+                    <!-- Row 3: To Airport Picker and Swap Button -->
+                    <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
+                        <Grid Grid.Column="0" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="50">
+                            <Image Grid.Column="0"
+                                   Source="{Binding SelectedDestinationAirport.CountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
+                                   HeightRequest="24" WidthRequest="36" Aspect="AspectFill"
+                                   VerticalOptions="Center"
+                                   IsVisible="{Binding IsDestinationCountryCodeVisible}"/>
+                            <Picker Grid.Column="1" Title="Select Destination Airport"
+                                    ItemsSource="{Binding AvailableAirports}"
+                                    ItemDisplayBinding="{Binding FullName}"
+                                    SelectedItem="{Binding SelectedDestinationAirport}"/>
+                        </Grid>
+                        <ImageButton Grid.Column="1" Source="swap_icon.png"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     Command="{Binding SwapAirportsCommand}"/>
+                    </Grid>
+
+                    <!-- Row 4: Depart Date Label -->
+                    <Label Grid.Row="4" Text="DEPART" TextColor="#cccccc" FontSize="12" Margin="0,5,0,0"/>
+
+                    <!-- Row 5: Depart Date Picker -->
+                    <DatePicker Grid.Row="5" Date="{Binding DepartureDate}" 
+                                MinimumDate="{x:Static system:DateTime.Today}" Format="dd/MM/yyyy"/>
+
+                    <!-- Row 6: Return Date (conditionally visible) -->
+                    <Grid Grid.Row="6" RowDefinitions="Auto,Auto" RowSpacing="4" 
+                          IsVisible="{Binding ShowReturnDate}">
+                        <Label Grid.Row="0" Text="RETURN" TextColor="#cccccc" FontSize="12"/>
+                        <DatePicker Grid.Row="1" Date="{Binding ReturnDate}" 
+                                    MinimumDate="{Binding DepartureDate}" Format="dd/MM/yyyy"/>
+                    </Grid>
+
+                    <!-- Row 7: Travelers Label -->
+                    <Label Grid.Row="7" Text="TRAVELERS" TextColor="#cccccc" FontSize="12" Margin="0,5,0,0"/>
+
+                    <!-- Row 8: Travelers Control -->
+                    <Grid Grid.Row="8" ColumnDefinitions="Auto,*,Auto" HeightRequest="60" 
+                          BackgroundColor="#1a1a1a" Padding="10" Margin="0,4">
+                        <Image Grid.Column="0" Source="person_icon.png" 
+                               VerticalOptions="Center" WidthRequest="24" HeightRequest="24"/>
+                        <Label Grid.Column="1" Text="{Binding NumberOfPassengers}" 
+                               HorizontalOptions="Center" VerticalOptions="Center" FontSize="16"/>
+                        <Stepper Grid.Column="2" Value="{Binding NumberOfPassengers}" 
+                                 Minimum="1" Maximum="10" HorizontalOptions="End" />
+                    </Grid>
+
+                </Grid>
+            </Frame>
+
+            <!-- Row 2: Error Message (if any) -->
+            <Label Grid.Row="2" Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding HasError}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   Margin="0,10,0,0"/>
+
+            <!-- Row 3: Search Flights Button -->
+            <Button Grid.Row="3" Text="Search Flights"
+                    Command="{Binding SearchFlightsCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Margin="0,20,0,0"/>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -7,6 +7,7 @@ namespace VitoriaAirlinesMAUI
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(FlightSearchResultsPage), typeof(FlightSearchResultsPage));
         }
 
 
@@ -27,6 +28,16 @@ namespace VitoriaAirlinesMAUI
                     ContentTemplate = new DataTemplate(() =>
                         serviceProvider.GetRequiredService<MainPage>())
                 },
+
+                   new ShellContent
+                {
+                    Title = "Book Flight",
+                    Route = nameof(FlightsSearchPage),
+                    Icon = "home-icon.png",
+                    ContentTemplate = new DataTemplate(() =>
+                        serviceProvider.GetRequiredService<FlightsSearchPage>())
+                },
+
                 new ShellSection
                 {
                     Title = "Profile",
@@ -71,7 +82,9 @@ namespace VitoriaAirlinesMAUI
                                 serviceProvider.GetRequiredService<PastFlightsPage>())
                         }
                     }
-                }
+                },
+
+
             }
             });
         }
