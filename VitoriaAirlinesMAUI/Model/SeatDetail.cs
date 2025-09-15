@@ -1,6 +1,4 @@
-﻿using VitoriaAirlinesMAUI.Data.Enums;
-
-namespace VitoriaAirlinesMAUI.Model
+﻿namespace VitoriaAirlinesMAUI.Model
 {
     public class SeatDetail
     {

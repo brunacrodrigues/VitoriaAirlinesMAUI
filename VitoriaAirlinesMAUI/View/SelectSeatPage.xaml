@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
     xmlns:model="clr-namespace:VitoriaAirlinesMAUI.Model"
-    xmlns:enums="clr-namespace:VitoriaAirlinesMAUI.Data.Enums"
+    xmlns:enums="clr-namespace:VitoriaAirlinesMAUI.Model"
     x:DataType="viewmodel:SelectSeatViewModel"
     BackgroundColor="#0e0e0e"
     Title="{Binding Title}">

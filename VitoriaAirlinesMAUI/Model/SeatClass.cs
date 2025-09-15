@@ -1,4 +1,4 @@
-﻿namespace VitoriaAirlinesMAUI.Data.Enums
+﻿namespace VitoriaAirlinesMAUI.Model
 {
     public enum SeatClass
     {

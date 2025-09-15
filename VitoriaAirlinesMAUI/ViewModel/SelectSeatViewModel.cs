@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using VitoriaAirlinesMAUI.Data.Enums;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
 
