@@ -31,7 +31,6 @@ namespace VitoriaAirlinesMAUI
 
 
             var baseUri = new Uri("http://10.0.2.2:5283/");
-            //var baseUri = new Uri("http://192.168.1.16:5283/");
 
 
 
@@ -70,6 +69,8 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddTransient<FlightSearchViewModel>();
             builder.Services.AddTransient<FlightSearchResultsViewModel>();
             builder.Services.AddTransient<FlightSearchResultsPage>();
+            builder.Services.AddTransient<SelectSeatViewModel>();
+            builder.Services.AddTransient<SelectSeatPage>();
 
 
             builder.Services.AddSingleton<AppShell>();

@@ -1,6 +1,8 @@
-﻿namespace VitoriaAirlinesMAUI.Model
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace VitoriaAirlinesMAUI.Model
 {
-    public class FlightSearchResult
+    public partial class FlightSearchResult : ObservableObject
     {
         public int FlightId { get; set; }
         public string FlightNumber { get; set; } = null!;
@@ -21,5 +23,8 @@
 
         public bool IsOriginCountryCodeVisible => !string.IsNullOrWhiteSpace(OriginCountryCode);
         public bool IsDestinationCountryCodeVisible => !string.IsNullOrWhiteSpace(DestinationCountryCode);
+
+        [ObservableProperty]
+        private bool isSelected;
     }
 }

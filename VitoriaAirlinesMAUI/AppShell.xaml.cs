@@ -8,6 +8,8 @@ namespace VitoriaAirlinesMAUI
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(FlightSearchResultsPage), typeof(FlightSearchResultsPage));
+            Routing.RegisterRoute(nameof(SelectSeatPage), typeof(SelectSeatPage));
+
         }
 
 

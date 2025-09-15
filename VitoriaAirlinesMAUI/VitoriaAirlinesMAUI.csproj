@@ -111,6 +111,9 @@
 	  <MauiXaml Update="View\ResetPasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\SelectSeatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\UpcomingFlightsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
