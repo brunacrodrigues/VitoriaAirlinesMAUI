@@ -1,15 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- O atributo 'package' será gerado automaticamente a partir do ApplicationId no .csproj -->
-	<application
-        android:allowBackup="true"
-        android:icon="@mipmap/appicon"
-        android:roundIcon="@mipmap/appicon_round"
-        android:supportsRtl="true"
-        android:theme="@style/Maui.SplashTheme">
+	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:theme="@style/Maui.SplashTheme" android:networkSecurityConfig="@xml/network_security_config">
 		<!-- A tag <activity> para MainActivity NÃO é necessária aqui, pois é gerada pelos atributos em MainActivity.cs -->
 	</application>
-
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

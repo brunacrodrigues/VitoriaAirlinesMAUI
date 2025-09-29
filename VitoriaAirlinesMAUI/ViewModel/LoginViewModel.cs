@@ -121,6 +121,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
                 Preferences.Set("Token", response.Data.Token);
                 Preferences.Set("UserRole", response.Data.Role);
+                //Preferences.Set("SavedEmail", Email);
 
 
                 if (RememberMe)

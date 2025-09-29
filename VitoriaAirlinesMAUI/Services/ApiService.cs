@@ -132,5 +132,43 @@ namespace VitoriaAirlinesMAUI.Services
         }
 
 
+        /// <summary>
+        /// Sends an HTTP GET request to retrieve a stream of data from the specified endpoint.
+        /// </summary>
+        /// <param name="endpoint">The URI endpoint to retrieve the stream from.</param>
+        /// <returns>
+        /// An ApiResponse containing a Stream if successful, or an error message if the request fails.
+        /// The caller is responsible for disposing of the returned stream.
+        /// </returns>
+        public async Task<ApiResponse<Stream?>> GetStreamAsync(string endpoint)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync(endpoint);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    return new ApiResponse<Stream?> { IsSuccess = true, Data = stream };
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    return new ApiResponse<Stream?>
+                    {
+                        IsSuccess = false,
+                        Message = $"HTTP {response.StatusCode}: {errorContent}"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<Stream?>
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 }

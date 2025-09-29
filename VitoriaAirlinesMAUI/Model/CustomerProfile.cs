@@ -33,5 +33,11 @@
         /// Gets or sets the customer's passport number.
         /// </summary>
         public string? PassportNumber { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the customer's email.
+        /// </summary>
+        public string Email { get; set; } = string.Empty;
     }
 }

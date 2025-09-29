@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
+using VitoriaAirlinesMAUI.View;
 
 namespace VitoriaAirlinesMAUI.ViewModel
 {
@@ -33,6 +34,14 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// </summary>
         private readonly IFlightService _flightService;
 
+
+        /// <summary>
+        /// Service dependency for user profile-related API operations.
+        /// Used to fetch authenticated user profile data from the backend.
+        /// Injected through constructor for testability and dependency inversion.
+        /// </summary>
+        private readonly IProfileService _profileService;
+
         #endregion
 
         #region Constructor
@@ -44,9 +53,10 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// when navigated to from other pages in the booking flow.
         /// </summary>
         /// <param name="flightService">Service for flight-related API operations</param>
-        public SelectSeatViewModel(IFlightService flightService)
+        public SelectSeatViewModel(IFlightService flightService, IProfileService profileService)
         {
             _flightService = flightService;
+            _profileService = profileService;
             Title = "Select Your Fare & Seat";
         }
 
@@ -539,6 +549,32 @@ namespace VitoriaAirlinesMAUI.ViewModel
                     return;
                 }
 
+
+                // 2. VALIDAÇÃO DO PERFIL PARA CLIENTES AUTENTICADOS (Nova Lógica)
+                if (Preferences.ContainsKey("Token"))
+                {
+                    var profileResponse = await _profileService.GetProfileAsync();
+
+                    // Nota: Verificamos apenas se o perfil existe. A validação de preenchimento (Passport/Country) 
+                    // será feita no BookingConfirmationViewModel/Backend, mas a navegação para a ProfilePage
+                    // é feita aqui para o utilizador corrigir.
+                    if (!profileResponse.IsSuccess || profileResponse.Data == null)
+                    {
+                        bool goToProfile = await Shell.Current.DisplayAlert(
+                            "Profile Error",
+                            "Could not load your profile details. Please go to your profile page to ensure your details are complete.",
+                            "Go to Profile", "Cancel");
+
+                        if (goToProfile)
+                        {
+                            await Shell.Current.GoToAsync("ProfilePage");
+                        }
+                        return;
+                    }
+                }
+
+
+
                 var seatDetail = SelectedSeat.SeatDetail;
 
                 if (IsRoundTripContext)
@@ -589,31 +625,26 @@ namespace VitoriaAirlinesMAUI.ViewModel
                             { "SearchRequest", SearchRequest! }
                         };
 
-                        // TODO: Navigate to BookingConfirmationPage
-                        await Shell.Current.DisplayAlert("Confirmação Completa",
-                            "Ambos os voos (ida e volta) selecionados! Pronto para a página de confirmação.", "OK");
-                        await Shell.Current.GoToAsync("..");
+                        await Shell.Current.GoToAsync(nameof(BookingConfirmationPage), navigationParams);
                     }
                 }
+
                 else
                 {
-                    // One-way trip: show confirmation and prepare for booking
+
                     await Shell.Current.DisplayAlert("Seat Selected (One-Way)",
                         $"Flight: {FlightSeatsResponse.FlightNumber}\n" +
                         $"Selected {SelectedFareClass} Seat: {seatDetail.Row}{seatDetail.Letter}", "OK");
 
                     var navigationParams = new Dictionary<string, object>
                     {
-                        { "Flight", FlightSearchResult },
-                        { "SelectedSeat", seatDetail },
-                        { "FareClass", SelectedFareClass },
+                        { "OutboundFlight", FlightSearchResult },
+                        { "OutboundSeat", seatDetail },
+                        { "OutboundFareClass", SelectedFareClass },
                         { "SearchRequest", SearchRequest! }
                     };
 
-                    // TODO: Navigate to BookingConfirmationPage
-                    await Shell.Current.DisplayAlert("Confirmação Completa",
-                        "Voo de ida selecionado! Pronto para a página de confirmação.", "OK");
-                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.GoToAsync(nameof(BookingConfirmationPage), navigationParams);
                 }
             }
             catch (Exception ex)

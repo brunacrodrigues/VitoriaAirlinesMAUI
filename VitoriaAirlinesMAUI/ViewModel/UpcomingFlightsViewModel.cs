@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
+using VitoriaAirlinesMAUI.View;
 
 namespace VitoriaAirlinesMAUI.ViewModel;
 
@@ -66,5 +67,16 @@ public partial class UpcomingFlightsViewModel : BaseViewModel
     public async Task RefreshAsync()
     {
         await LoadAsync();
+    }
+
+
+
+    [RelayCommand]
+    private async Task ViewBoardingPassAsync(object parameter)
+    {
+        if (parameter is Ticket ticket)
+        {
+            await Shell.Current.GoToAsync($"{nameof(BoardingPassPage)}?TicketId={ticket.TicketId}");
+        }
     }
 }

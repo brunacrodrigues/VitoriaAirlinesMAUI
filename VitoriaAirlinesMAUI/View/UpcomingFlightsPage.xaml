@@ -3,6 +3,7 @@
     x:Class="VitoriaAirlinesMAUI.View.UpcomingFlightsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
     BackgroundColor="#0e0e0e"
     Title="{Binding Title}"
     Loaded="ContentPage_Loaded">
@@ -43,9 +44,17 @@
                            Margin="20"/>
                 </CollectionView.EmptyView>
 
+              
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame>
+                         
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UpcomingFlightsViewModel}}, Path=ViewBoardingPassCommand}"
+                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
                             <VerticalStackLayout Spacing="0">
                                 <!-- Header -->
                                 <Grid BackgroundColor="#4B0012" Padding="14,10">
@@ -55,34 +64,34 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Text="{Binding FlightNumber}" FontAttributes="Bold"/>
                                     <Label Grid.Column="1"
-                                           Text="{Binding Status}"
-                                           Padding="10,4"
-                                           BackgroundColor="#D4A437"
-                                           TextColor="Black"
-                                           FontSize="12"
-                                           VerticalOptions="Center"/>
+                           Text="{Binding Status}"
+                           Padding="10,4"
+                           BackgroundColor="#D4A437"
+                           TextColor="Black"
+                           FontSize="12"
+                           VerticalOptions="Center"/>
                                 </Grid>
 
                                 <!-- Body -->
                                 <Grid BackgroundColor="#A67C26" Padding="14" RowDefinitions="Auto,Auto,Auto,Auto">
                                     <HorizontalStackLayout Grid.Row="0" Spacing="8">
                                         <Image HeightRequest="16" WidthRequest="24" Aspect="AspectFill"
-               Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}" />
+                               Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}" />
                                         <Label Text="{Binding OriginAirport}" />
                                     </HorizontalStackLayout>
 
                                     <HorizontalStackLayout Grid.Row="1" Spacing="8">
                                         <Image HeightRequest="16" WidthRequest="24" Aspect="AspectFill"
-               Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}" />
+                               Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}" />
                                         <Label Text="{Binding DestinationAirport}" />
                                     </HorizontalStackLayout>
-                                    
+
                                     <Label Grid.Row="2"
-                                           Text="{Binding DepartureUtc, StringFormat='Departure: {0:dd/MM/yyyy HH:mm}'}" />
+                           Text="{Binding DepartureUtc, StringFormat='Departure: {0:dd/MM/yyyy HH:mm}'}" />
                                     <Grid Grid.Row="3" ColumnDefinitions="*,Auto" Margin="0,6,0,0">
                                         <Label Text="{Binding Seat}" />
                                         <Label Grid.Column="1"
-                                               Text="{Binding PricePaid, StringFormat='€ {0:0.00}'}" />
+                               Text="{Binding PricePaid, StringFormat='€ {0:0.00}'}" />
                                     </Grid>
                                 </Grid>
                             </VerticalStackLayout>
