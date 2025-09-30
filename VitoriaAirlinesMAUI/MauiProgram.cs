@@ -55,6 +55,7 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddScoped<ITicketService, TicketService>();
             builder.Services.AddScoped<IFlightService, FlightService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
 
             // ViewModels
             builder.Services.AddTransient<LoginViewModel>();
@@ -73,6 +74,7 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddTransient<WelcomeViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<AboutViewModel>();
+            builder.Services.AddTransient<MainPageViewModel>();
 
 
             // Views
