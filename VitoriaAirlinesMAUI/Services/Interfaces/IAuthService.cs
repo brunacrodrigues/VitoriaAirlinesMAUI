@@ -41,5 +41,13 @@ namespace VitoriaAirlinesMAUI.Services.Interfaces
         /// such as the JWT token and saved credentials.
         /// </summary>
         void Logout();
+
+
+        /// <summary>
+        /// Sends a new user registration request to the API.
+        /// </summary>
+        /// <param name="request">The registration data.</param>
+        /// <returns>An ApiResponse indicating success or failure of the registration.</returns>
+        Task<ApiResponse<object?>> RegisterAsync(RegisterNewUserRequest request);
     }
 }

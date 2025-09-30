@@ -69,5 +69,17 @@ namespace VitoriaAirlinesMAUI.Services
             Preferences.Remove("SavedEmail");
             Preferences.Remove("SavedPassword");
         }
+
+
+
+        /// <summary>
+        /// Sends a new user registration request to the API.
+        /// </summary>
+        /// <param name="request">The registration data.</param>
+        /// <returns>An ApiResponse indicating success or failure of the registration.</returns>
+        public async Task<ApiResponse<object?>> RegisterAsync(RegisterNewUserRequest request)
+        {
+            return await _apiService.PostAsync<RegisterNewUserRequest, object>("api/auth/register", request);
+        }
     }
 }

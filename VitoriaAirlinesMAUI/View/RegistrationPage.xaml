@@ -1,0 +1,213 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
+             x:Class="VitoriaAirlinesMAUI.View.RegistrationPage"
+             x:DataType="viewmodel:RegisterViewModel"
+             BackgroundColor="#0e0e0e"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="*,Auto,*">
+        <ScrollView Grid.Row="1">
+            <Grid Padding="30" HorizontalOptions="Center">
+                <Frame BackgroundColor="#1a1a1a"
+                       CornerRadius="12"
+                       Padding="25"
+                       HasShadow="True"
+                       WidthRequest="350"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+
+                    <Grid RowSpacing="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- 0: Title -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 1: Subtitle -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 2: First Name -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 3: Last Name -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 4: Email -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 5: Password -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 6: Confirm Password -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 7: Error -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 8: Register Button -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 9: Loading -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Title -->
+                        <Label Grid.Row="0"
+                               Text="Create Account"
+                               FontFamily="OutfitSemiBold"
+                               FontSize="24"
+                               TextColor="#D4A437"
+                               HorizontalOptions="Center" />
+
+                        <!-- Subtitle -->
+                        <Label Grid.Row="1"
+                               Text="Join Vitoria Airlines and book your flight"
+                               FontFamily="OutfitMedium"
+                               FontSize="14"
+                               TextColor="#D4A437"
+                               HorizontalOptions="Center" />
+
+                        <!-- First Name -->
+                        <Border Grid.Row="2"
+                                Padding="10,0"
+                                StrokeThickness="0"
+                                BackgroundColor="#2a2a2a"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry Text="{Binding FirstName}"
+                                   FontFamily="OutfitRegular"
+                                   Placeholder="First Name"
+                                   TextColor="White"
+                                   PlaceholderColor="#888"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="50" />
+                        </Border>
+
+                        <!-- Last Name -->
+                        <Border Grid.Row="3"
+                                Padding="10,0"
+                                StrokeThickness="0"
+                                BackgroundColor="#2a2a2a"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry Text="{Binding LastName}"
+                                   Grid.Row="3"
+                                   FontFamily="OutfitRegular"
+                                   Placeholder="Last Name"
+                                   TextColor="White"
+                                   PlaceholderColor="#888"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="50" />
+                        </Border>
+
+                        <!-- Email -->
+                        <Border Grid.Row="4"
+                                Padding="10,0"
+                                StrokeThickness="0"
+                                BackgroundColor="#2a2a2a"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry Text="{Binding Email}"
+                                   FontFamily="OutfitRegular"
+                                   Placeholder="Email (Your new username)"
+                                   TextColor="White"
+                                   PlaceholderColor="#888"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="50"
+                                   Keyboard="Email"/>
+                        </Border>
+
+
+                        <!-- Password with toggle (Grid.Row="5") -->
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.ColumnSpan="2"
+            Padding="10,0"
+            StrokeThickness="0"
+            BackgroundColor="#2a2a2a"
+            StrokeShape="RoundRectangle 8">
+                                <Entry Text="{Binding Password}"
+               FontFamily="OutfitRegular"
+               IsPassword="{Binding IsPasswordHidden}"
+               Placeholder="Password (min. 8 characters)"
+               TextColor="White"
+               PlaceholderColor="#888"
+               BackgroundColor="Transparent"
+               HeightRequest="50" />
+                            </Border>
+
+                            <!-- ImageButton para a Senha Principal -->
+                            <ImageButton Grid.Column="1"
+                 Source="{Binding PasswordToggleIcon}"
+                 Command="{Binding TogglePasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 WidthRequest="25"
+                 HeightRequest="25"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 Margin="0,0,10,0" />
+                        </Grid>
+
+                        <!-- Confirm Password with toggle (Grid.Row="6") -->
+                        <Grid Grid.Row="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.ColumnSpan="2"
+            Padding="10,0"
+            StrokeThickness="0"
+            BackgroundColor="#2a2a2a"
+            StrokeShape="RoundRectangle 8">
+                                <Entry Text="{Binding ConfirmPassword}"
+               FontFamily="OutfitRegular"
+               IsPassword="{Binding IsPasswordHidden}"
+               Placeholder="Confirm Password"
+               TextColor="White"
+               PlaceholderColor="#888"
+               BackgroundColor="Transparent"
+               HeightRequest="50" />
+                            </Border>
+
+                            <!-- ImageButton para a Confirmação de Senha -->
+                            <ImageButton Grid.Column="1"
+                 Source="{Binding PasswordToggleIcon}"
+                 Command="{Binding TogglePasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 WidthRequest="25"
+                 HeightRequest="25"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 Margin="0,0,10,0" />
+                        </Grid>
+
+
+                        <!-- Error -->
+                        <Label Grid.Row="7"
+                               Text="{Binding ErrorMessage}"
+                               TextColor="#f8f8f8"
+                               BackgroundColor="#850d1c"
+                               IsVisible="{Binding HasError}"
+                               Padding="10"
+                               FontSize="12"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+
+                        <!-- Register Button -->
+                        <Button Grid.Row="8"
+                                Text="Sign Up"
+                                Command="{Binding RegisterCommand}"
+                                BackgroundColor="#4B0012"
+                                FontFamily="OutfitRegular"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                HeightRequest="50"
+                                IsEnabled="{Binding IsNotBusy}" />
+
+                        <!-- Loading -->
+                        <ActivityIndicator Grid.Row="9"
+                                           IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           Color="White"
+                                           HorizontalOptions="Center"/>
+
+                    </Grid>
+
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

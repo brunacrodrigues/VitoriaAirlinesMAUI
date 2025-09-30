@@ -57,6 +57,8 @@ namespace VitoriaAirlinesMAUI
             Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
             Routing.RegisterRoute(nameof(FlightsSearchPage), typeof(FlightsSearchPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+            Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
+
         }
 
 

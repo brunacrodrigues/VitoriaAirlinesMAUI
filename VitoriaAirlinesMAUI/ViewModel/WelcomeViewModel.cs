@@ -32,6 +32,6 @@ public partial class WelcomeViewModel : BaseViewModel
     private async Task GoToRegisterAsync()
     {
 
-        await Shell.Current.DisplayAlert("Feature Not Implemented", "Please use the 'Log In' page or proceed as a Guest.", "OK");
+        await Shell.Current.GoToAsync(nameof(RegistrationPage));
     }
 }
