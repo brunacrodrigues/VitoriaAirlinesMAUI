@@ -18,22 +18,23 @@ namespace VitoriaAirlinesMAUI
 
             var token = Preferences.Get("Token", string.Empty);
 
+            // O AppShell é instanciado UMA VEZ
+            var appShell = _serviceProvider.GetRequiredService<AppShell>();
+            MainPage = appShell; // Define o AppShell como o Root Page
+
             if (!string.IsNullOrWhiteSpace(token))
             {
-                var appShell = _serviceProvider.GetRequiredService<AppShell>();
-                MainPage = appShell;
-
-
                 appShell.ConfigureShellForAuthenticatedUser(_serviceProvider);
-
 
                 _ = Shell.Current.GoToAsync($"//{nameof(MainPage)}");
             }
             else
             {
-                var loginPage = _serviceProvider.GetRequiredService<LoginPage>();
-                MainPage = new NavigationPage(loginPage);
+                appShell.ConfigureShellForAnonymousUser(_serviceProvider);
+
+                _ = Shell.Current.GoToAsync($"//{nameof(WelcomePage)}");
             }
+
         }
 
 
@@ -42,10 +43,20 @@ namespace VitoriaAirlinesMAUI
 
         private void InitializeRouting()
         {
-            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+
             Routing.RegisterRoute(nameof(ForgotPasswordPage), typeof(ForgotPasswordPage));
             Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));
+
+            Routing.RegisterRoute(nameof(FlightSearchResultsPage), typeof(FlightSearchResultsPage));
+            Routing.RegisterRoute(nameof(SelectSeatPage), typeof(SelectSeatPage));
+            Routing.RegisterRoute(nameof(BookingConfirmationPage), typeof(BookingConfirmationPage));
+            Routing.RegisterRoute(nameof(PaymentPage), typeof(PaymentPage));
             Routing.RegisterRoute(nameof(BoardingPassPage), typeof(BoardingPassPage));
+
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
+            Routing.RegisterRoute(nameof(FlightsSearchPage), typeof(FlightsSearchPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         }
 
 

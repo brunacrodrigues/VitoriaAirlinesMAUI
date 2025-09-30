@@ -7,13 +7,6 @@ namespace VitoriaAirlinesMAUI
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(FlightSearchResultsPage), typeof(FlightSearchResultsPage));
-            Routing.RegisterRoute(nameof(SelectSeatPage), typeof(SelectSeatPage));
-            Routing.RegisterRoute(nameof(BookingConfirmationPage), typeof(BookingConfirmationPage));
-            //Routing.RegisterRoute(nameof(BoardingPassPage), typeof(BoardingPassPage));
-            Routing.RegisterRoute(nameof(PaymentPage), typeof(PaymentPage));
-
-
 
         }
 
@@ -93,6 +86,45 @@ namespace VitoriaAirlinesMAUI
 
 
             }
+            });
+        }
+
+        public void ConfigureShellForAnonymousUser(IServiceProvider serviceProvider)
+        {
+            Items.Clear();
+
+
+            Items.Add(new TabBar
+            {
+                Items =
+        {
+            new ShellContent
+            {
+                Title = "Welcome",
+                Route = nameof(WelcomePage),
+                Icon = "home-icon.png",
+                ContentTemplate = new DataTemplate(() =>
+                    serviceProvider.GetRequiredService<WelcomePage>())
+            },
+
+            new ShellContent
+            {
+                Title = "Book Flight",
+                Route = nameof(FlightsSearchPage),
+                Icon = "search-icon.png",
+                ContentTemplate = new DataTemplate(() =>
+                    serviceProvider.GetRequiredService<FlightsSearchPage>())
+            },
+
+            new ShellContent
+            {
+                Title = "Login",
+                Route = nameof(LoginPage),
+                Icon = "login-icon.png",
+                ContentTemplate = new DataTemplate(() =>
+                    serviceProvider.GetRequiredService<LoginPage>())
+            }
+        }
             });
         }
     }

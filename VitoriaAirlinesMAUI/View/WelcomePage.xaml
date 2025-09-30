@@ -1,0 +1,73 @@
+<ContentPage
+    x:Class="VitoriaAirlinesMAUI.View.WelcomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
+    x:DataType="viewmodel:WelcomeViewModel"
+    BackgroundColor="#0e0e0e"
+    Title="Welcome">
+
+    <VerticalStackLayout
+        Spacing="30"
+        Padding="30"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        MaximumWidthRequest="400">
+
+        <!-- LOGO ou Título -->
+        <Label Text="Vitoria Airlines"
+               FontSize="36"
+               FontAttributes="Bold"
+               TextColor="#D4A437"
+               HorizontalOptions="Center"/>
+
+        <Label Text="Fly with the best experience in Europe."
+               FontSize="18"
+               TextColor="#cccccc"
+               HorizontalOptions="Center"
+               LineBreakMode="WordWrap"
+               Margin="0,-10,0,10"/>
+
+        <!-- Opção 1: Continuar como Convidado (Book Flight) -->
+        <Button Text="✈️ Continue as Guest (Book Flight)"
+                Command="{Binding GoToSearchCommand}"
+                BackgroundColor="#007bff"
+                TextColor="White"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                HeightRequest="55"/>
+
+        <BoxView HeightRequest="1" Color="#333333" Margin="0,10,0,10"/>
+
+        <!-- Opção 2 & 3: Login e Registo -->
+        <Label Text="Already a member?"
+               FontSize="16"
+               TextColor="#cccccc"
+               HorizontalOptions="Center"/>
+
+        <Grid ColumnDefinitions="*, 10, *" ColumnSpacing="0">
+            <!-- Botão Login -->
+            <Button Grid.Column="0"
+                    Text="Log In"
+                    Command="{Binding GoToLoginCommand}"
+                    BackgroundColor="#D4A437"
+                    TextColor="#0e0e0e"
+                    CornerRadius="10"
+                    FontAttributes="Bold"
+                    HeightRequest="55"/>
+
+            <!-- Botão Registo -->
+            <Button Grid.Column="2"
+                    Text="Sign Up"
+                    Command="{Binding GoToRegisterCommand}"
+                    BackgroundColor="#1a1a1a"
+                    BorderColor="#D4A437"
+                    BorderWidth="1"
+                    TextColor="#D4A437"
+                    CornerRadius="10"
+                    FontAttributes="Bold"
+                    HeightRequest="55"/>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>

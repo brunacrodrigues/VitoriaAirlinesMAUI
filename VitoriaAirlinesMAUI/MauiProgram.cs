@@ -70,6 +70,7 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddTransient<BookingConfirmationViewModel>();
             builder.Services.AddTransient<PaymentViewModel>();
             builder.Services.AddTransient<BoardingPassViewModel>();
+            builder.Services.AddTransient<WelcomeViewModel>();
 
 
             // Views
@@ -87,6 +88,7 @@ namespace VitoriaAirlinesMAUI
             builder.Services.AddTransient<BookingConfirmationPage>();
             builder.Services.AddTransient<PaymentPage>();
             builder.Services.AddTransient<BoardingPassPage>();
+            builder.Services.AddTransient<WelcomePage>();
 
 
             builder.Services.AddSingleton<AppShell>();

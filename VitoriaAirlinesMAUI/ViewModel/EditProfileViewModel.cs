@@ -297,7 +297,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
         ///// <summary>
         ///// Logs out the current user, clears authentication data, and redirects to login.
-        ///// </summary>      
+        ///// </summary>   
         [RelayCommand]
         private async Task LogoutAsync()
         {
@@ -306,14 +306,18 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
             _authService.Logout();
 
-            //App.SetRootPageBasedOnAuthentication();
-            // Set the LoginPage as the new root (no async/await needed here)
+
             var app = Application.Current as App;
-            var sp = app?.Services ?? App.StaticServiceProvider; // usa o que já tens
+            var sp = app?.Services ?? App.StaticServiceProvider;
+            var appShell = sp.GetRequiredService<AppShell>();
 
-            var loginPage = sp.GetRequiredService<LoginPage>();
-            Application.Current.MainPage = new NavigationPage(loginPage);
 
+            appShell.ConfigureShellForAnonymousUser(sp);
+
+            Application.Current.MainPage = appShell;
+
+            await Shell.Current.GoToAsync($"//{nameof(View.WelcomePage)}");
         }
+
     }
 }
