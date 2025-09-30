@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
+             x:Class="VitoriaAirlinesMAUI.View.AboutPage"
+             x:DataType="viewmodel:AboutViewModel"
+             BackgroundColor="#0e0e0e"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="20,30">
+
+            <!-- Header Card com Gradiente -->
+            <Frame BackgroundColor="#4B0012" 
+                   CornerRadius="20"
+                   Padding="30,25"
+                   HasShadow="True"
+                   BorderColor="Transparent">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="✈️" 
+                           FontSize="42"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,5"/>
+
+                    <Label Text="Vitoria Airlines"
+                           FontSize="32"
+                           FontFamily="OutfitExtraBold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+                    <BoxView HeightRequest="2"
+                             WidthRequest="60"
+                             BackgroundColor="#D4A437"
+                             HorizontalOptions="Center"
+                             CornerRadius="1"
+                             Margin="0,5,0,10"/>
+
+                    <Label Text="{Binding AppDescription}"
+                           FontSize="15"
+                           TextColor="#e0e0e0"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Information Card -->
+            <Frame BackgroundColor="#1a1a1a"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="False"
+                   BorderColor="#2a2a2a">
+                <Grid ColumnDefinitions="Auto, *" 
+                      RowDefinitions="Auto,Auto,Auto,Auto"
+                      RowSpacing="18"
+                      ColumnSpacing="15">
+
+                    <!-- Author -->
+                    <Label Grid.Row="0" Grid.Column="0" 
+                           Text="👤"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="2">
+                        <Label Text="Author" 
+                               FontSize="12"
+                               TextColor="#888888"/>
+                        <Label Text="{Binding AuthorName}" 
+                               FontSize="16"
+                               FontAttributes="Bold" 
+                               TextColor="White"/>
+                    </VerticalStackLayout>
+
+                    <!-- Version -->
+                    <Label Grid.Row="1" Grid.Column="0" 
+                           Text="📦"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="2">
+                        <Label Text="Version" 
+                               FontSize="12"
+                               TextColor="#888888"/>
+                        <Label Text="{Binding AppVersion}" 
+                               FontSize="16"
+                               FontAttributes="Bold" 
+                               TextColor="White"/>
+                    </VerticalStackLayout>
+
+                    <!-- Date -->
+                    <Label Grid.Row="2" Grid.Column="0" 
+                           Text="📅"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Row="2" Grid.Column="1" Spacing="2">
+                        <Label Text="Project Date" 
+                               FontSize="12"
+                               TextColor="#888888"/>
+                        <Label Text="{Binding AppDate}" 
+                               FontSize="16"
+                               TextColor="White"/>
+                    </VerticalStackLayout>
+
+                    <!-- Technology -->
+                    <Label Grid.Row="3" Grid.Column="0" 
+                           Text="⚡"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                    <VerticalStackLayout Grid.Row="3" Grid.Column="1" Spacing="2">
+                        <Label Text="Technology" 
+                               FontSize="12"
+                               TextColor="#888888"/>
+                        <Label Text=".NET MAUI (MVVM)" 
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#D4A437"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
+
+            <!-- MVVM Bonus Badge -->
+            <Border BackgroundColor="#2a2010"
+                    Stroke="#D4A437"
+                    StrokeThickness="2"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 12"
+                    HorizontalOptions="Fill">
+                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12">
+                    <Frame Grid.Column="0"
+                           BackgroundColor="#D4A437"
+                           CornerRadius="25"
+                           Padding="12"
+                           HasShadow="False"
+                           WidthRequest="50"
+                           HeightRequest="50"
+                           VerticalOptions="Start">
+                        <Label Text="✓" 
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <VerticalStackLayout Grid.Column="1" 
+                                       Spacing="4"
+                                       VerticalOptions="Center">
+                        <Label Text="MVVM Pattern Implemented"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#D4A437"/>
+                        <Label Text="This application follows the Model-View-ViewModel architecture."
+                               FontSize="13"
+                               TextColor="#b0b0b0"
+                               LineBreakMode="WordWrap"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Footer -->
+            <Label Text="Made with ❤️ for .NET MAUI"
+                   FontSize="12"
+                   TextColor="#666666"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,20"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

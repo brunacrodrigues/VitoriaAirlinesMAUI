@@ -84,10 +84,18 @@ namespace VitoriaAirlinesMAUI
                     }
                 },
 
-
+                   new ShellContent
+                {
+                    Title = "About",
+                    Route = nameof(AboutPage),
+                    Icon = "home-icon.png",
+                    ContentTemplate = new DataTemplate(() =>
+                        serviceProvider.GetRequiredService<AboutPage>())
+                },
             }
             });
         }
+
 
         public void ConfigureShellForAnonymousUser(IServiceProvider serviceProvider)
         {
@@ -123,7 +131,17 @@ namespace VitoriaAirlinesMAUI
                 Icon = "login-icon.png",
                 ContentTemplate = new DataTemplate(() =>
                     serviceProvider.GetRequiredService<LoginPage>())
-            }
+            },
+
+            new ShellContent
+            {
+                Title = "About",
+                Route = nameof(AboutPage),
+                Icon = "home-icon.png",
+                ContentTemplate = new DataTemplate(() =>
+                    serviceProvider.GetRequiredService<AboutPage>())
+            },
+
         }
             });
         }
