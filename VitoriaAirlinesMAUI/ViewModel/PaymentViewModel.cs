@@ -61,8 +61,6 @@ public partial class PaymentViewModel : BaseViewModel
                     }
                     else
                     {
-                        await Shell.Current.GoToAsync($"///{nameof(View.FlightsSearchPage)}");
-
 
                         await Shell.Current.DisplayAlert("Booking Confirmed!",
                             "Your round-trip booking is confirmed! Account details were sent to your email. Please Log In to view your return ticket.", "OK");
@@ -78,8 +76,14 @@ public partial class PaymentViewModel : BaseViewModel
                         await Shell.Current.DisplayAlert("Booking Confirmed!",
                             "Your one-way booking is confirmed! Account details were sent to your email. Please Log In to manage your booking.", "OK");
                     }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Booking Confirmed!",
+                           "Your one-way booking is confirmed! Your boarding pass was sent to your email.", "OK");
+                    }
 
                     await Shell.Current.GoToAsync($"///{nameof(View.FlightsSearchPage)}");
+
 
                     var boardingPassRoute = $"{nameof(View.BoardingPassPage)}?TicketId={outboundTicketId}";
                     await Shell.Current.GoToAsync(boardingPassRoute);
