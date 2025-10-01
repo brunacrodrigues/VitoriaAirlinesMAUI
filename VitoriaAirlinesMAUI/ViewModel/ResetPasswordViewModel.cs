@@ -201,9 +201,10 @@ namespace VitoriaAirlinesMAUI.ViewModel
                 }
 
                 await Shell.Current.DisplayAlert("Success", "Your password has been reset.", "OK");
-                var appShell = (App.Current as App)!.Services.GetRequiredService<AppShell>();
-                Application.Current.MainPage = appShell;
-                await Shell.Current.GoToAsync(nameof(LoginPage));
+                //var appShell = (App.Current as App)!.Services.GetRequiredService<AppShell>();
+                //Application.Current.MainPage = appShell;
+                //await Shell.Current.GoToAsync(nameof(LoginPage));
+                await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
 
             }
             finally

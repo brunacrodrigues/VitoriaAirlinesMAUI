@@ -69,7 +69,8 @@ namespace VitoriaAirlinesMAUI.ViewModel
                 }
 
                 await Shell.Current.DisplayAlert("Success", "Check your email for password reset instructions.", "OK");
-                await Shell.Current.GoToAsync(nameof(LoginPage));
+
+                await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
 
             }
             finally
