@@ -1,17 +1,21 @@
 ﻿using VitoriaAirlinesMAUI.ViewModel;
 
-namespace VitoriaAirlinesMAUI.View
+namespace VitoriaAirlinesMAUI.View;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    private readonly MainPageViewModel _viewModel;
+
+    public MainPage(MainPageViewModel viewModel)
     {
-
-        public MainPage(MainPageViewModel viewModel)
-        {
-            InitializeComponent();
-            BindingContext = viewModel;
-        }
-
-
+        InitializeComponent();
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.LoadDashboardCommand.ExecuteAsync(null);
+    }
 }

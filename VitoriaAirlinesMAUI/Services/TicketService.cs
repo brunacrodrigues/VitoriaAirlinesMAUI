@@ -24,4 +24,14 @@ public class TicketService : ITicketService
     {
         return await _apiService.GetAsync<List<Ticket>?>("api/flights/history/me");
     }
+
+
+
+    public async Task<ApiResponse<object?>> CancelTicketAsync(int ticketId)
+    {
+        return await _apiService.PostAsync<object, object>(
+            $"api/booking/{ticketId}/cancel",
+            new object());
+    }
+
 }
