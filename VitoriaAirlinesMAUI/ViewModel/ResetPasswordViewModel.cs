@@ -76,16 +76,16 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
         /// <summary>
         /// Gets the name of the icon to display based on the new password visibility state.
-        /// Returns "eye-slash.svg" if the password is hidden, or "eye.svg" if visible.
+        /// Returns "eye_slash.svg" if the password is hidden, or "eye.svg" if visible.
         /// </summary>
-        public string NewPasswordToggleIcon => IsNewPasswordHidden ? "eye-slash.svg" : "eye.svg";
+        public string NewPasswordToggleIcon => IsNewPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
         /// <summary>
         /// Gets the name of the icon to display based on the confirm password visibility state.
-        /// Returns "eye-slash.svg" if the password is hidden, or "eye.svg" if visible.
+        /// Returns "eye_slash.svg" if the password is hidden, or "eye.svg" if visible.
         /// </summary>
-        public string ConfirmPasswordToggleIcon => IsConfirmPasswordHidden ? "eye-slash.svg" : "eye.svg";
+        public string ConfirmPasswordToggleIcon => IsConfirmPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
 
@@ -136,9 +136,12 @@ namespace VitoriaAirlinesMAUI.ViewModel
                 {
                     var bytes = WebEncoders.Base64UrlDecode(b64);
                     Token = Encoding.UTF8.GetString(bytes);
+
+                    System.Diagnostics.Debug.WriteLine($"[DEEPLINK SUCCESS] Token Decoded: {Token}");
                 }
-                catch
+                catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine($"[DEEPLINK ERROR] Token Decoding Failed: {ex.Message}");
                     Token = null;
                 }
             }

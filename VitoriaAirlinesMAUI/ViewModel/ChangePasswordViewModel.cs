@@ -77,21 +77,21 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// <summary>
         /// Gets the name of the icon to display based on current password visibility state.
         /// </summary>
-        public string CurrentPasswordToggleIcon => IsCurrentPasswordHidden ? "eye-slash.svg" : "eye.svg";
+        public string CurrentPasswordToggleIcon => IsCurrentPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
 
         /// <summary>
         /// Gets the name of the icon to display based on new password visibility state.
         /// </summary>
-        public string NewPasswordToggleIcon => IsNewPasswordHidden ? "eye-slash.svg" : "eye.svg";
+        public string NewPasswordToggleIcon => IsNewPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
 
         /// <summary>
         /// Gets the name of the icon to display based on confirm password visibility state.
         /// </summary>
-        public string ConfirmPasswordToggleIcon => IsConfirmPasswordHidden ? "eye-slash.svg" : "eye.svg";
+        public string ConfirmPasswordToggleIcon => IsConfirmPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
 

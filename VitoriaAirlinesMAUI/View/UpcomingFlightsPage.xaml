@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="VitoriaAirlinesMAUI.View.UpcomingFlightsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -30,14 +29,14 @@
 
     <Grid RowDefinitions="Auto,*" Padding="20">
 
-        <!-- Header -->
+    
         <VerticalStackLayout Spacing="4" Margin="0,10,0,10">
             <Label Text="Here you can view your future trips." 
                    FontSize="14"
                    TextColor="#888888"/>
         </VerticalStackLayout>
 
-        <!-- List with Pull-to-Refresh -->
+      
         <RefreshView Grid.Row="1"
                      Command="{Binding RefreshCommand}"
                      IsRefreshing="{Binding IsBusy}"
@@ -51,10 +50,11 @@
                     <VerticalStackLayout Spacing="15" 
                                        VerticalOptions="Center"
                                        Padding="40">
-                        <Label Text="✈️" 
-                               FontSize="64"
-                               HorizontalOptions="Center"
-                               Opacity="0.3"/>
+                        <Image Source="myflights_icon.png" 
+WidthRequest="125" 
+HeightRequest="50" 
+HorizontalOptions="Center"
+Margin="0,0,10,5"/>
                         <Label Text="No upcoming flights found"
                                FontSize="18"
                                FontAttributes="Bold"
@@ -78,7 +78,7 @@
 
                             <VerticalStackLayout Spacing="0">
 
-                                <!-- Header: Flight Number + Status -->
+                            
                                 <Grid BackgroundColor="#4B0012" 
                                       Padding="18,14"
                                       ColumnDefinitions="*,Auto">
@@ -98,12 +98,12 @@
                                     </Border>
                                 </Grid>
 
-                                <!-- Body: Flight Details -->
+                              
                                 <VerticalStackLayout BackgroundColor="#1a1a1a" 
                                                    Padding="18,16"
                                                    Spacing="12">
 
-                                    <!-- Origin -->
+                                 
                                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                                         <Border Grid.Column="0"
                                                 StrokeShape="RoundRectangle 6"
@@ -121,13 +121,13 @@
                                                VerticalOptions="Center"/>
                                     </Grid>
 
-                                    <!-- Arrow -->
+                                 
                                     <Label Text="↓" 
                                            FontSize="20"
                                            TextColor="#D4A437"
                                            Margin="14,0,0,0"/>
 
-                                    <!-- Destination -->
+                                 
                                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                                         <Border Grid.Column="0"
                                                 StrokeShape="RoundRectangle 6"
@@ -145,12 +145,12 @@
                                                VerticalOptions="Center"/>
                                     </Grid>
 
-                                    <!-- Separator -->
+                                   
                                     <BoxView HeightRequest="1"
                                              BackgroundColor="#2a2a2a"
                                              Margin="0,8,0,8"/>
 
-                                    <!-- Departure & Price -->
+                                 
                                     <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                                         <VerticalStackLayout Grid.Column="0" Spacing="4">
                                             <Label Text="Departure"
@@ -173,7 +173,7 @@
                                         </VerticalStackLayout>
                                     </Grid>
 
-                                    <!-- Seat -->
+                                   
                                     <Grid ColumnDefinitions="Auto,*">
                                         <Label Grid.Column="0"
                                                Text="Seat: "
@@ -185,15 +185,15 @@
                                                FontAttributes="Bold"/>
                                     </Grid>
 
-                                    <!-- Separator -->
+                                   
                                     <BoxView HeightRequest="1"
                                              BackgroundColor="#2a2a2a"
                                              Margin="0,8,0,4"/>
 
-                                    <!-- Action Buttons -->
+                                   
                                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,4,0,0">
 
-                                        <!-- View Boarding Pass Button -->
+                                    
                                         <Button Grid.Column="0"
                                                 Text="View Pass"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UpcomingFlightsViewModel}}, Path=ViewBoardingPassCommand}"
@@ -205,7 +205,7 @@
                                                 CornerRadius="10"
                                                 HeightRequest="44"/>
 
-                                        <!-- Cancel Flight Button -->
+                                       
                                         <Button Grid.Column="1"
                                                 Text="Cancel"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UpcomingFlightsViewModel}}, Path=CancelFlightCommand}"

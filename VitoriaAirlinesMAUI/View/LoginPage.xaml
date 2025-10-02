@@ -1,98 +1,91 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:VitoriaAirlinesMAUI.ViewModel"
              x:Class="VitoriaAirlinesMAUI.View.LoginPage"
+             x:DataType="viewmodel:LoginViewModel"
              BackgroundColor="#0e0e0e"
-             Title="{Binding Title}">
+             Shell.NavBarIsVisible="False">
+
+  
+    <ContentPage.Resources>
+        <Color x:Key="AccentColor">#D4A437</Color>
+        <Color x:Key="CardBackground">#1a1a1a</Color>
+        <Color x:Key="InputBackground">#2a2a2a</Color>
+        <Color x:Key="PrimaryTextColor">White</Color>
+        <Color x:Key="SubtitleTextColor">#cccccc</Color>
+        <Color x:Key="ErrorColor">#850d1c</Color>
+        <Color x:Key="LoginButtonColor">#4B0012</Color>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="*,Auto,*">
-        <ScrollView Grid.Row="1">
-            <Grid Padding="30" HorizontalOptions="Center">
-                <Frame BackgroundColor="#1a1a1a"
-                       CornerRadius="12"
-                       Padding="25"
-                       HasShadow="True"
-                       WidthRequest="350"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center">
 
-                    <Grid RowSpacing="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <!-- 0: Title -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 1: Subtitle -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 2: Email -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 3: Password -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 4: Forgot Password -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 5: Remember Me -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 6: Error -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 7: Login Button -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- 8: Loading -->
-                        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="1" VerticalOptions="Center">
 
-                        <!-- Title -->
-                        <Label Grid.Row="0"
-                               Text="Welcome back"
-                               FontFamily="OutfitSemiBold"
-                               FontSize="24"
-                               TextColor="#D4A437"
-                               HorizontalOptions="Center" />
+     
+            <VerticalStackLayout Padding="30" HorizontalOptions="Center" MaximumWidthRequest="400">
 
-                        <!-- Subtitle -->
-                        <Label Grid.Row="1"
-                               Text="Log in to your Vitoria Airlines account"
-                               FontFamily="OutfitMedium"
-                               FontSize="14"
-                               TextColor="#D4A437"
-                               HorizontalOptions="Center" />
+           
+                <Border BackgroundColor="{StaticResource CardBackground}"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="25"
+                        Stroke="#2a2a2a"
+                        StrokeThickness="1"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center">
 
-                        <!-- Email -->
-                        <Border Grid.Row="2"
-                                Padding="10,0"
+                    <VerticalStackLayout Spacing="20">
+
+                   
+                        <Image Source="logo_va.png" 
+                               WidthRequest="125" 
+                               HeightRequest="50" 
+                               HorizontalOptions="Center"
+                               Margin="0,0,10,5"/>
+
+            
+                        <Label Text="Welcome back to your Vitoria Airlines account"
+                               FontSize="15"
+                               TextColor="{StaticResource AccentColor}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,0,0,10"/>
+
+                      
+                        <Border Padding="10,0"
                                 StrokeThickness="0"
-                                BackgroundColor="#2a2a2a"
+                                BackgroundColor="{StaticResource InputBackground}"
                                 StrokeShape="RoundRectangle 8">
                             <Entry Text="{Binding Email}"
-                                   FontFamily="OutfitRegular"
                                    Placeholder="Email"
-                                   TextColor="White"
+                                   TextColor="{StaticResource PrimaryTextColor}"
                                    PlaceholderColor="#888"
                                    BackgroundColor="Transparent"
                                    HeightRequest="50" />
                         </Border>
 
-                        <!-- Password with toggle -->
-                        <Grid Grid.Row="3">
+                      
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0"
                                     Padding="10,0"
                                     StrokeThickness="0"
-                                    BackgroundColor="#2a2a2a"
+                                    BackgroundColor="{StaticResource InputBackground}"
                                     StrokeShape="RoundRectangle 8">
                                 <Entry Text="{Binding Password}"
-                                       FontFamily="OutfitRegular"
                                        IsPassword="{Binding IsPasswordHidden}"
                                        Placeholder="Password"
-                                       TextColor="White"
+                                       TextColor="{StaticResource PrimaryTextColor}"
                                        PlaceholderColor="#888"
                                        BackgroundColor="Transparent"
                                        HeightRequest="50"
                                        x:Name="PasswordEntry" />
                             </Border>
 
-                            <ImageButton Grid.Column="0"
-                                         Source="{Binding PasswordToggleIcon}"
+                            <ImageButton Source="{Binding PasswordToggleIcon}"
                                          Command="{Binding TogglePasswordVisibilityCommand}"
                                          BackgroundColor="Transparent"
                                          WidthRequest="20"
@@ -102,12 +95,10 @@
                                          Margin="0,0,10,0" />
                         </Grid>
 
-                        <!-- Forgot Password link -->
-                        <Label Grid.Row="4"
-                               Text="Forgot Password?"
-                               TextColor="#f0b400"
+                  
+                        <Label Text="Forgot Password?"
+                               TextColor="{StaticResource AccentColor}"
                                FontSize="13"
-                               FontFamily="OutfitRegular"
                                HorizontalOptions="End"
                                VerticalOptions="Center"
                                Margin="0,-8,2,0">
@@ -116,49 +107,44 @@
                             </Label.GestureRecognizers>
                         </Label>
 
-                        <!-- Remember Me -->
-                        <HorizontalStackLayout Grid.Row="5"
-                                               HorizontalOptions="Start">
-                            <CheckBox IsChecked="{Binding RememberMe}" />
+                     
+                        <HorizontalStackLayout HorizontalOptions="Start" Spacing="5" Margin="0,-10,0,0">
+                            <CheckBox IsChecked="{Binding RememberMe}" Color="{StaticResource AccentColor}"/>
                             <Label Text="Remember Me"
-                                   FontFamily="OutfitRegular"
-                                   TextColor="White"
-                                   VerticalOptions="Center"/>
+                                   TextColor="{StaticResource PrimaryTextColor}"
+                                   VerticalOptions="Center"
+                                   FontSize="14"/>
                         </HorizontalStackLayout>
 
-                        <!-- Error -->
-                        <Label Grid.Row="6"
-                               Text="{Binding ErrorMessage}"
-                               TextColor="#f8f8f8"
-                               BackgroundColor="#850d1c"
+                      
+                        <Label Text="{Binding ErrorMessage}"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               BackgroundColor="{StaticResource ErrorColor}"
                                IsVisible="{Binding HasError}"
                                Padding="10"
                                FontSize="12"
                                HorizontalOptions="Fill"
-                               HorizontalTextAlignment="Center" />
+                               HorizontalTextAlignment="Center"
+                               Margin="0,-5,0,0"/>
 
-                        <!-- Login Button -->
-                        <Button Grid.Row="7"
-                                Text="Login"
+                        <Button Text="Log In"
                                 Command="{Binding LoginCommand}"
-                                BackgroundColor="#4B0012"
-                                FontFamily="OutfitRegular"
-                                TextColor="White"
+                                BackgroundColor="{StaticResource LoginButtonColor}"
+                                TextColor="{StaticResource PrimaryTextColor}"
                                 FontAttributes="Bold"
-                                CornerRadius="8"
-                                HeightRequest="50"
+                                CornerRadius="12"
+                                HeightRequest="52"
+                                FontSize="16"
                                 IsEnabled="{Binding IsNotBusy}" />
 
-                        <!-- Loading -->
-                        <ActivityIndicator Grid.Row="8"
-                                           IsRunning="{Binding IsBusy}"
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
                                            IsVisible="{Binding IsBusy}"
-                                           Color="White"
+                                           Color="{StaticResource AccentColor}"
                                            HorizontalOptions="Center"/>
-                    </Grid>
+                    </VerticalStackLayout>
 
-                </Frame>
-            </Grid>
+                </Border>
+            </VerticalStackLayout>
         </ScrollView>
     </Grid>
 </ContentPage>

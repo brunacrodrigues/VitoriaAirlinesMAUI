@@ -7,159 +7,216 @@
              Loaded="OnPageLoaded">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="25">
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- Profile Image -->
-            <Frame BackgroundColor="#1a1a1a" CornerRadius="12" Padding="20" HasShadow="True">
-                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+      
+            <Frame BackgroundColor="#1a1a1a" 
+                   CornerRadius="20" 
+                   Padding="30,40" 
+                   HasShadow="True"
+                   BorderColor="Transparent">
+                <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
 
-                    <Image Source="{Binding CurrentImageUrl}"
-       WidthRequest="100"
-       HeightRequest="100"
-       Aspect="AspectFill"
-       BackgroundColor="Gray">
-                        <Image.Clip>
-                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
-                        </Image.Clip>
-                    </Image>
+                   
+                    <Border StrokeShape="Ellipse"
+                            Stroke="#D4A437"
+                            StrokeThickness="3"
+                            WidthRequest="120"
+                            HeightRequest="120"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#2a2a2a">
+                        <Image Source="{Binding CurrentImageUrl}"
+                               Aspect="AspectFill"/>
+                    </Border>
 
-
-                    <Button Text="Change Profile Picture"
+             
+                    <Button Text="Change Picture"
                             Command="{Binding SelectImageCommand}"
                             BackgroundColor="#D4A437"
-                            TextColor="Black"
+                            TextColor="#0e0e0e"
                             FontAttributes="Bold"
-                            CornerRadius="8"
-                            HeightRequest="45" />
+                            CornerRadius="12"
+                            HeightRequest="48"
+                            WidthRequest="200"
+                            FontSize="15" />
 
-                    <CheckBox IsChecked="{Binding RemoveImage}" />
-                    <Label Text="Remove current profile picture"
-                           FontSize="13"
-                           TextColor="White"
-                           VerticalOptions="Center"/>
+          
+                    <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                        <CheckBox IsChecked="{Binding RemoveImage}"
+                                  Color="#D4A437"/>
+                        <Label Text="Remove profile picture"
+                               FontSize="14"
+                               TextColor="#888888"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Profile Form -->
-            <Frame BackgroundColor="#1a1a1a" CornerRadius="12" Padding="20" HasShadow="True">
-                <Grid RowSpacing="20"
-                      RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+          
+            <VerticalStackLayout Spacing="12">
+                <Label Text="PERSONAL INFORMATION"
+                       FontSize="12"
+                       TextColor="#888888"
+                       FontAttributes="Bold"
+                       Margin="4,0,0,0"/>
 
-                    <!-- First Name -->
-                    <Border Grid.Row="0"
-                            BackgroundColor="#2a2a2a"
-                            StrokeShape="RoundRectangle 8"
-                            Padding="10,0">
-                        <Entry Text="{Binding FirstName}"
-                               Placeholder="First Name"
-                               FontFamily="OutfitRegular"
-                               TextColor="White"
-                               PlaceholderColor="#888"
-                               BackgroundColor="Transparent"
-                               HeightRequest="50"/>
-                    </Border>
+                <Frame BackgroundColor="#1a1a1a" 
+                       CornerRadius="16" 
+                       Padding="20" 
+                       HasShadow="True"
+                       BorderColor="Transparent">
+                    <VerticalStackLayout Spacing="16">
 
-                    <!-- Last Name -->
-                    <Border Grid.Row="1"
-                            BackgroundColor="#2a2a2a"
-                            StrokeShape="RoundRectangle 8"
-                            Padding="10,0">
-                        <Entry Text="{Binding LastName}"
-                               Placeholder="Last Name"
-                               FontFamily="OutfitRegular"
-                               TextColor="White"
-                               PlaceholderColor="#888"
-                               BackgroundColor="Transparent"
-                               HeightRequest="50"/>
-                    </Border>
+             
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="First Name"
+                                   FontSize="12"
+                                   TextColor="#888888"
+                                   Margin="4,0"/>
+                            <Border BackgroundColor="#2a2a2a"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="16,0">
+                                <Entry Text="{Binding FirstName}"
+                                       Placeholder="Enter your first name"
+                                       TextColor="White"
+                                       PlaceholderColor="#666666"
+                                       BackgroundColor="Transparent"
+                                       HeightRequest="50"/>
+                            </Border>
+                        </VerticalStackLayout>
 
-                    <!-- Country -->
-                    <syncfusion:SfComboBox Grid.Row="3"
-                                           ItemsSource="{Binding Countries}"
-                                           SelectedItem="{Binding SelectedCountry}"
-                                           DisplayMemberPath="Name"
-                                           Placeholder="Select nationality"
-                                           TextColor="White"
-                                           BackgroundColor="#2a2a2a"
-                                           FontFamily="OutfitRegular"
-                                           HeightRequest="50">
+                
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Last Name"
+                                   FontSize="12"
+                                   TextColor="#888888"
+                                   Margin="4,0"/>
+                            <Border BackgroundColor="#2a2a2a"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="16,0">
+                                <Entry Text="{Binding LastName}"
+                                       Placeholder="Enter your last name"
+                                       TextColor="White"
+                                       PlaceholderColor="#666666"
+                                       BackgroundColor="Transparent"
+                                       HeightRequest="50"/>
+                            </Border>
+                        </VerticalStackLayout>
 
+                  
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Nationality"
+                                   FontSize="12"
+                                   TextColor="#888888"
+                                   Margin="4,0"/>
+                            <Border BackgroundColor="#2a2a2a"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="0">
+                                <syncfusion:SfComboBox ItemsSource="{Binding Countries}"
+                                                       SelectedItem="{Binding SelectedCountry}"
+                                                       DisplayMemberPath="Name"
+                                                       Placeholder="Select your nationality"
+                                                       TextColor="White"
+                                                       BackgroundColor="Transparent"
+                                                       HeightRequest="50"
+                                                       Margin="16,0">
+                                    <syncfusion:SfComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="12">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
 
-                        <syncfusion:SfComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Padding="10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                                <Border StrokeShape="RoundRectangle 4"
+                                                        BackgroundColor="#1a1a1a"
+                                                        Padding="0"
+                                                        WidthRequest="32"
+                                                        HeightRequest="22">
+                                                    <Image Source="{Binding FlagImageUrl}"
+                                                           Aspect="AspectFill"/>
+                                                </Border>
 
-                                    <Image Source="{Binding FlagImageUrl}"
-                                           WidthRequest="30"
-                                           HeightRequest="20"
-                                           VerticalOptions="Center"
-                                           HorizontalOptions="Start"
-                                           Aspect="AspectFit"/>
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Name}"
+                                                       TextColor="White"
+                                                       VerticalOptions="Center"
+                                                       FontSize="14"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </syncfusion:SfComboBox.ItemTemplate>
+                                </syncfusion:SfComboBox>
+                            </Border>
+                        </VerticalStackLayout>
 
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Name}"
-                                           TextColor="White"
-                                           FontFamily="OutfitRegular"
-                                           VerticalOptions="Center"
-                                           FontSize="14"/>
-                                </Grid>
-                            </DataTemplate>
-                        </syncfusion:SfComboBox.ItemTemplate>
-                    </syncfusion:SfComboBox>
+                 
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Passport Number"
+                                   FontSize="12"
+                                   TextColor="#888888"
+                                   Margin="4,0"/>
+                            <Border BackgroundColor="#2a2a2a"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="16,0">
+                                <Entry Text="{Binding PassportNumber}"
+                                       Placeholder="Enter passport number"
+                                       TextColor="White"
+                                       PlaceholderColor="#666666"
+                                       BackgroundColor="Transparent"
+                                       HeightRequest="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
 
-                    <!-- Passport Number -->
-                    <Border Grid.Row="4"
-                            BackgroundColor="#2a2a2a"
-                            StrokeShape="RoundRectangle 8"
-                            Padding="10,0">
-                        <Entry Text="{Binding PassportNumber}"
-                               Placeholder="Passport Number"
-                               FontFamily="OutfitRegular"
-                               TextColor="White"
-                               PlaceholderColor="#888"
-                               BackgroundColor="Transparent"
-                               HeightRequest="50"/>
-                    </Border>
-                </Grid>
-            </Frame>
+        
+            <Border BackgroundColor="#DC3545"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16"
+                    IsVisible="{Binding HasError}"
+                    Margin="0,4">
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="White"
+                       FontSize="13"
+                       HorizontalTextAlignment="Center"/>
+            </Border>
 
-            <!-- Error -->
-            <Label Text="{Binding ErrorMessage}"
-                   TextColor="#f8f8f8"
-                   BackgroundColor="#850d1c"
-                   IsVisible="{Binding HasError}"
-                   Padding="10"
-                   FontSize="12"
-                   HorizontalTextAlignment="Center" />
+         
+            <VerticalStackLayout Spacing="12" Margin="0,8,0,0">
 
-            <!-- Save Button -->
-            <Button Text="Save"
-                    Command="{Binding UpdateProfileCommand}"
-                    BackgroundColor="#4B0012"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    CornerRadius="8"
-                    HeightRequest="50"
-                    IsEnabled="{Binding IsNotBusy}" />
+              
+                <Button Text="Save Changes"
+                        Command="{Binding UpdateProfileCommand}"
+                        BackgroundColor="#D4A437"
+                        TextColor="#0e0e0e"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="54"
+                        FontSize="16"
+                        IsEnabled="{Binding IsNotBusy}">                  
+                </Button>
 
+              
+                <Button Text="Logout"
+                        Command="{Binding LogoutCommand}"
+                        BackgroundColor="#4B0012"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="54"
+                        FontSize="16"/>
+            </VerticalStackLayout>
 
-            <Button Text="Logout"
-        Command="{Binding LogoutCommand}"
-        BackgroundColor="#D32F2F"
-        TextColor="White"
-        FontAttributes="Bold"
-        CornerRadius="8"
-        HeightRequest="50"/>
-
-            <!-- Loading Indicator -->
+          
             <ActivityIndicator IsRunning="{Binding IsBusy}"
                                IsVisible="{Binding IsBusy}"
-                               Color="White"
-                               HorizontalOptions="Center"/>
+                               Color="#D4A437"
+                               HeightRequest="40"
+                               WidthRequest="40"
+                               HorizontalOptions="Center"
+                               Margin="0,20"/>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

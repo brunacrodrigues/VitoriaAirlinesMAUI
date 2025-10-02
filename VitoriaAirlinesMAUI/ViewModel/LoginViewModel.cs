@@ -61,9 +61,9 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
         /// <summary>
         /// Gets the name of the icon to display based on the current password visibility state.
-        /// Returns "eye-slash.svg" if the password is hidden, or "eye.svg" if visible.
+        /// Returns "eye_slash.svg" if the password is hidden, or "eye.svg" if visible.
         /// </summary>
-        public string PasswordToggleIcon => IsPasswordHidden ? "eye-slash.svg" : "eye.svg";
+        public string PasswordToggleIcon => IsPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
 
@@ -163,7 +163,6 @@ namespace VitoriaAirlinesMAUI.ViewModel
         [RelayCommand]
         private async Task NavigateToForgotPasswordAsync()
         {
-            //await Shell.Current.GoToAsync(nameof(ForgotPasswordPage));
             var sp = ((App)Application.Current).Services;
             var page = sp.GetRequiredService<ForgotPasswordPage>();
             await Shell.Current.Navigation.PushAsync(page);

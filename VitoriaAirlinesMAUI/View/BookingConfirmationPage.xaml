@@ -9,121 +9,328 @@
     BackgroundColor="#0e0e0e">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="24">
 
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#D4A437"/>
-            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="Red" HorizontalOptions="Center"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               IsVisible="{Binding IsBusy}" 
+                               Color="#D4A437"
+                               HeightRequest="40"
+                               WidthRequest="40"
+                               HorizontalOptions="Center"/>
 
-            <!-- TRIP SUMMARY -->
-            <Frame BackgroundColor="#1a1a1a" CornerRadius="10" Padding="15">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Trip Summary" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+         
+          
 
-                    <!-- Outbound Flight -->
-                    <Label Text="{Binding OutboundFlight.FlightNumber, StringFormat='Outbound Flight: {0}'}" TextColor="#D4A437"/>
-                    <Label TextColor="#cccccc">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Seat: "/>
-                                <Span Text="{Binding OutboundSeat.Row}"/>
-                                <Span Text="{Binding OutboundSeat.Letter}"/>
-                                <Span Text=" ("/>
-                                <Span Text="{Binding OutboundFareClass}"/>
-                                <Span Text=")"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+         
+            <VerticalStackLayout Spacing="12">
+                <Label Text="TRIP SUMMARY"
+                       FontSize="12"
+                       TextColor="#888888"
+                       FontAttributes="Bold"
+                       Margin="4,0,0,0"/>
 
-                    <!-- Return Flight -->
-                    <BoxView HeightRequest="1" Color="#333333" IsVisible="{Binding IsRoundTrip}"/>
-                    <Label Text="{Binding ReturnFlight.FlightNumber, StringFormat='Return Flight: {0}'}" TextColor="#D4A437" IsVisible="{Binding IsRoundTrip}"/>
-                    <Label TextColor="#cccccc" IsVisible="{Binding IsRoundTrip}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Seat: "/>
-                                <Span Text="{Binding ReturnSeat.Row}"/>
-                                <Span Text="{Binding ReturnSeat.Letter}"/>
-                                <Span Text=" ("/>
-                                <Span Text="{Binding ReturnFareClass}"/>
-                                <Span Text=")"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                    <!-- Total -->
-                    <BoxView HeightRequest="1" Color="#333333"/>
-                    <Grid ColumnDefinitions="*, Auto">
-                        <Label Text="TOTAL TO PAY" FontSize="18" FontAttributes="Bold" TextColor="White"/>
-                        <Label Grid.Column="1" Text="{Binding TotalPrice, StringFormat='€{0:0.00}'}" FontSize="24" FontAttributes="Bold" TextColor="#D4A437"/>
-                    </Grid>
-                </VerticalStackLayout>
-            </Frame>
-
-            <!-- PASSENGER DETAILS -->
-            <Label Text="Passenger Details" FontSize="22" FontAttributes="Bold" Margin="0,10,0,0" TextColor="White"/>
-
-            <!-- AUTHENTICATED CUSTOMER: Read-only display -->
-            <Frame BackgroundColor="#1a1a1a" CornerRadius="10" Padding="15" IsVisible="{Binding IsCustomerAuthenticated}">
-                <VerticalStackLayout Spacing="10">
-                    <!-- Profile Complete - Show info -->
-                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10" RowSpacing="10" 
-                          IsVisible="{Binding IsProfileComplete}">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Name:" FontAttributes="Bold" TextColor="#cccccc"/>
-                        <Label Grid.Row="0" Grid.Column="1" TextColor="White">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{Binding FirstName}"/>
-                                    <Span Text=" "/>
-                                    <Span Text="{Binding LastName}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-
-                        <Label Grid.Row="1" Grid.Column="0" Text="Email:" FontAttributes="Bold" TextColor="#cccccc"/>
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Email}" TextColor="White"/>
-
-                        <Label Grid.Row="2" Grid.Column="0" Text="Passport:" FontAttributes="Bold" TextColor="#cccccc"/>
-                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding PassportNumber}" TextColor="White"/>
-                    </Grid>
-
-                    <!-- Profile Incomplete - Show form -->
-                    <VerticalStackLayout Spacing="10" IsVisible="{Binding IsProfileIncomplete}">
-                        <Label Text="Please complete your profile information:" 
-                               TextColor="#D4A437" FontSize="14"/>
+                <Frame BackgroundColor="#1a1a1a" 
+                       CornerRadius="16" 
+                       Padding="20" 
+                       HasShadow="True"
+                       BorderColor="#4B0012">
+                    <VerticalStackLayout Spacing="16">
 
                       
-                        <Entry Placeholder="Passport Number" Text="{Binding PassportNumber}" 
-           PlaceholderColor="#cccccc" TextColor="White" BackgroundColor="#2a2a2a"
-           IsReadOnly="{Binding IsPassportReadOnly}" />
-                    
+                        <VerticalStackLayout Spacing="8">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0"
+                                       Text="Outbound Flight" 
+                                       FontSize="14" 
+                                       TextColor="#888888"
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding OutboundPrice, StringFormat='€{0:0.00}'}" 
+                                       FontSize="14" 
+                                       TextColor="#D4A437"
+                                       FontAttributes="Bold"/>
+                            </Grid>
+                            
+                            <Label Text="{Binding OutboundFlight.FlightNumber}" 
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#D4A437"/>
+                            <Label TextColor="White" FontSize="14">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Seat: " TextColor="#888888"/>
+                                        <Span Text="{Binding OutboundSeat.Row}"/>
+                                        <Span Text="{Binding OutboundSeat.Letter}"/>
+                                        <Span Text=" · "/>
+                                        <Span Text="{Binding OutboundFareClass}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+
+                      
+                        <VerticalStackLayout Spacing="8" IsVisible="{Binding IsRoundTrip}">
+                            <BoxView HeightRequest="1" Color="#2a2a2a"/>
+
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0"
+                                       Text="Return Flight" 
+                                       FontSize="14" 
+                                       TextColor="#888888"
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding ReturnPrice, StringFormat='€{0:0.00}'}" 
+                                       FontSize="14" 
+                                       TextColor="#D4A437"
+                                       FontAttributes="Bold"/>
+                            </Grid>
+                            
+                      
+                            <Label Text="{Binding ReturnFlight.FlightNumber}" 
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#D4A437"/>
+                            <Label TextColor="White" FontSize="14">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Seat: " TextColor="#888888"/>
+                                        <Span Text="{Binding ReturnSeat.Row}"/>
+                                        <Span Text="{Binding ReturnSeat.Letter}"/>
+                                        <Span Text=" · "/>
+                                        <Span Text="{Binding ReturnFareClass}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+
+                     
+                        <VerticalStackLayout Spacing="8">
+                            <BoxView HeightRequest="2" Color="#4B0012"/>
+                            <Grid ColumnDefinitions="*, Auto" BackgroundColor="#4B0012" Padding="15" Margin="0,0,0,0">
+                                <Label Text="TOTAL TO PAY" 
+                                       FontSize="14" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1" 
+                                       Text="{Binding TotalPrice, StringFormat='€{0:0.00}'}" 
+                                       FontSize="28" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#D4A437"/>
+                            </Grid>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
-                </VerticalStackLayout>
-            </Frame>
-
-            <!-- ANONYMOUS USER: Input fields for new account -->
-            <VerticalStackLayout Spacing="10" IsVisible="{Binding IsNotCustomerAuthenticated}">
-                <Label Text="Create your account to complete booking (login details will be emailed to you):" 
-                       TextColor="#D4A437" FontSize="14"/>
-
-                <Entry Placeholder="First Name" Text="{Binding FirstName}" 
-                       PlaceholderColor="#cccccc" TextColor="White" BackgroundColor="#2a2a2a"/>
-                <Entry Placeholder="Last Name" Text="{Binding LastName}" 
-                       PlaceholderColor="#cccccc" TextColor="White" BackgroundColor="#2a2a2a"/>
-                <Entry Placeholder="Email (Your new login username)" Text="{Binding Email}" 
-                       PlaceholderColor="#cccccc" TextColor="White" BackgroundColor="#2a2a2a"/>
-                <Entry Placeholder="Passport Number" Text="{Binding PassportNumber}" 
-                       PlaceholderColor="#cccccc" TextColor="White" BackgroundColor="#2a2a2a"/>
+                </Frame>
             </VerticalStackLayout>
 
-            <!-- PAYMENT BUTTON -->
+            <Border BackgroundColor="#DC3545"
+          StrokeShape="RoundRectangle 12"
+          Padding="16"
+          IsVisible="{Binding HasError}">
+                <Label Text="{Binding ErrorMessage}"
+             TextColor="White"
+             FontSize="13"
+             HorizontalTextAlignment="Center"/>
+            </Border>
+
+
+            <VerticalStackLayout Spacing="12">
+                <Label Text="PASSENGER DETAILS"
+                       FontSize="12"
+                       TextColor="#888888"
+                       FontAttributes="Bold"
+                       Margin="4,0,0,0"/>
+
+           
+                <Frame BackgroundColor="#1a1a1a" 
+                       CornerRadius="16" 
+                       Padding="20" 
+                       HasShadow="True"
+                       BorderColor="Transparent"
+                       IsVisible="{Binding IsCustomerAuthenticated}">
+                    <VerticalStackLayout Spacing="16">
+
+                 
+                        <Grid RowDefinitions="Auto,Auto,Auto" 
+                              ColumnDefinitions="100,*" 
+                              ColumnSpacing="12" 
+                              RowSpacing="12" 
+                              IsVisible="{Binding IsProfileComplete}">
+
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Text="Name" 
+                                   FontSize="12"
+                                   TextColor="#888888"/>
+                            <Label Grid.Row="0" Grid.Column="1" 
+                                   TextColor="White"
+                                   FontSize="15">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding FirstName}"/>
+                                        <Span Text=" "/>
+                                        <Span Text="{Binding LastName}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" 
+                                   Text="Email" 
+                                   FontSize="12"
+                                   TextColor="#888888"/>
+                            <Label Grid.Row="1" Grid.Column="1" 
+                                   Text="{Binding Email}" 
+                                   TextColor="White"
+                                   FontSize="15"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" 
+                                   Text="Passport" 
+                                   FontSize="12"
+                                   TextColor="#888888"/>
+                            <Label Grid.Row="2" Grid.Column="1" 
+                                   Text="{Binding PassportNumber}" 
+                                   TextColor="White"
+                                   FontSize="15"/>
+                        </Grid>
+
+                      
+                        <VerticalStackLayout Spacing="12" IsVisible="{Binding IsProfileIncomplete}">
+                            <Border BackgroundColor="#4B0012"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="12"
+                                    Stroke="#D4A437"
+                                    StrokeThickness="1">
+                                <Label Text="Please complete your profile information" 
+                                       TextColor="White" 
+                                       FontSize="13"/>
+                            </Border>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Passport Number"
+                                       FontSize="12"
+                                       TextColor="#888888"
+                                       Margin="4,0"/>
+                                <Border BackgroundColor="#2a2a2a"
+                                        StrokeShape="RoundRectangle 10"
+                                        Padding="16,0">
+                                    <Entry Placeholder="Enter passport number" 
+                                           Text="{Binding PassportNumber}" 
+                                           PlaceholderColor="#666666" 
+                                           TextColor="White" 
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="50"
+                                           IsReadOnly="{Binding IsPassportReadOnly}"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+  
+                <VerticalStackLayout Spacing="12" IsVisible="{Binding IsNotCustomerAuthenticated}">
+
+                    <Border BackgroundColor="#4B0012"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="16"
+                            Stroke="#D4A437"
+                            StrokeThickness="1">
+                        <Label Text="Create your account to complete booking. Login details will be emailed to you." 
+                               TextColor="White" 
+                               FontSize="13"
+                               LineBreakMode="WordWrap"/>
+                    </Border>
+
+                    <Frame BackgroundColor="#1a1a1a" 
+                           CornerRadius="16" 
+                           Padding="20" 
+                           HasShadow="True"
+                           BorderColor="Transparent">
+                        <VerticalStackLayout Spacing="16">
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="First Name"
+                                       FontSize="12"
+                                       TextColor="#888888"
+                                       Margin="4,0"/>
+                                <Border BackgroundColor="#2a2a2a"
+                                        StrokeShape="RoundRectangle 10"
+                                        Padding="16,0">
+                                    <Entry Placeholder="Enter first name" 
+                                           Text="{Binding FirstName}" 
+                                           PlaceholderColor="#666666" 
+                                           TextColor="White" 
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="50"/>
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Last Name"
+                                       FontSize="12"
+                                       TextColor="#888888"
+                                       Margin="4,0"/>
+                                <Border BackgroundColor="#2a2a2a"
+                                        StrokeShape="RoundRectangle 10"
+                                        Padding="16,0">
+                                    <Entry Placeholder="Enter last name" 
+                                           Text="{Binding LastName}" 
+                                           PlaceholderColor="#666666" 
+                                           TextColor="White" 
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="50"/>
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Email (Your login username)"
+                                       FontSize="12"
+                                       TextColor="#888888"
+                                       Margin="4,0"/>
+                                <Border BackgroundColor="#2a2a2a"
+                                        StrokeShape="RoundRectangle 10"
+                                        Padding="16,0">
+                                    <Entry Placeholder="Enter email address" 
+                                           Text="{Binding Email}" 
+                                           Keyboard="Email"
+                                           PlaceholderColor="#666666" 
+                                           TextColor="White" 
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="50"/>
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Passport Number"
+                                       FontSize="12"
+                                       TextColor="#888888"
+                                       Margin="4,0"/>
+                                <Border BackgroundColor="#2a2a2a"
+                                        StrokeShape="RoundRectangle 10"
+                                        Padding="16,0">
+                                    <Entry Placeholder="Enter passport number" 
+                                           Text="{Binding PassportNumber}" 
+                                           PlaceholderColor="#666666" 
+                                           TextColor="White" 
+                                           BackgroundColor="Transparent"
+                                           HeightRequest="50"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+           
             <Button Text="{Binding TotalPrice, StringFormat='Proceed to Payment - €{0:0.00}'}"
                     Command="{Binding ProceedToPaymentCommand}"
                     BackgroundColor="#D4A437"
                     TextColor="#0e0e0e"
-                    CornerRadius="8"
+                    CornerRadius="12"
                     FontAttributes="Bold"
-                    Margin="0,20,0,0"/>
-
+                    HeightRequest="54"
+                    FontSize="16"
+                    Margin="0,8,0,0">               
+            </Button>
+           
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -10,31 +10,30 @@
     Title="{Binding Title}">
 
     <ContentPage.Resources>
-        <!-- Fare Card (Economy/Executive) -->
+
         <Style x:Key="FareCardStyle" TargetType="Frame">
-            <Setter Property="HasShadow" Value="False"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="8"/>
             <Setter Property="BackgroundColor" Value="#1a1a1a"/>
-            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="BorderColor" Value="#2a2a2a"/>
             <Style.Triggers>
                 <DataTrigger TargetType="Frame"
                              Binding="{Binding SelectedFareClass}"
-                    Value="{x:Static enums:SeatClass.Economy}">
-                    <Setter Property="BorderColor" Value="#007bff"/>
+                             Value="{x:Static enums:SeatClass.Economy}">
+                    <Setter Property="BorderColor" Value="#4B0012"/>
                 </DataTrigger>
                 <DataTrigger TargetType="Frame"
                              Binding="{Binding SelectedFareClass}"
-                    Value="{x:Static enums:SeatClass.Executive}">
-                    <Setter Property="BorderColor" Value="#ffc107"/>
+                             Value="{x:Static enums:SeatClass.Executive}">
+                    <Setter Property="BorderColor" Value="#D4A437"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
-        <!-- Seats style -->
         <Style x:Key="SeatFrameStyle" TargetType="Frame">
-            <Setter Property="WidthRequest" Value="45"/>
+            <Setter Property="WidthRequest" Value="40"/>
             <Setter Property="HeightRequest" Value="45"/>
             <Setter Property="CornerRadius" Value="8"/>
             <Setter Property="Padding" Value="0"/>
@@ -51,82 +50,145 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="12" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-           
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#D4A437"/>
             <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="Red" HorizontalOptions="Center"/>
 
-            
             <VerticalStackLayout IsVisible="{Binding HasFlightSeatsResponse}">
 
-                <!-- Flight Details -->
-                <Label Text="{Binding FlightDetailsDisplay}"
-                       TextColor="#cccccc"
-                       FontSize="16"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       Margin="0,10,0,10"
-                       LineBreakMode="WordWrap"/>
+                <Frame BackgroundColor="#1a1a1a"
+                       CornerRadius="12"
+                       Padding="16"
+                       HasShadow="False"
+                       BorderColor="#4B0012"
+                       Margin="0,0,0,10">
+                    <Label Text="{Binding FlightDetailsDisplay}"
+                           TextColor="White"
+                           FontSize="15"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap"/>
+                </Frame>
 
-                <!-- "Choose Your Fare" -->
                 <Label Text="First, choose your fare"
                        FontSize="18"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        Margin="0,0,0,10"/>
 
-                <Grid ColumnDefinitions="*,*" MaximumWidthRequest="600" HorizontalOptions="Center">
-                    <!-- Economy Fare card -->
+                <Grid ColumnDefinitions="*,*" MaximumWidthRequest="700" HorizontalOptions="Center">
+
+                 
                     <Frame Style="{StaticResource FareCardStyle}" Grid.Column="0">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectFareCommand}" CommandParameter="{x:Static enums:SeatClass.Economy}"/>
                         </Frame.GestureRecognizers>
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Label Text="Economy Class" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
-                            <Label Text="{Binding EconomyPrice, StringFormat='From €{0:0.00}'}" FontSize="16" TextColor="#cccccc" HorizontalOptions="Center"/>
-                            <Button Text="Select This Fare"
-                                    Command="{Binding SelectFareCommand}"
-                                    CommandParameter="{x:Static enums:SeatClass.Economy}"
-                                    BackgroundColor="#007bff"
-                                    TextColor="White"
-                                    CornerRadius="8"
-                                    IsVisible="{Binding IsEconomyNotSelected}"/>
-                            <Label Text="Selected"
-                                    IsVisible="{Binding IsEconomySelected}"
-                                    TextColor="#007bff"
-                                    FontSize="16"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"/>
+                        <VerticalStackLayout Spacing="0">
+                         
+                            <Grid BackgroundColor="#4B0012" Padding="16,12">
+                                <Label Text="Economy Class" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White" 
+                                       HorizontalOptions="Center"/>
+                            </Grid>
+
+                           
+                            <VerticalStackLayout Padding="20" Spacing="16" BackgroundColor="#1a1a1a">
+                                <Label Text="{Binding EconomyPrice, StringFormat='From €{0:0.00}'}" 
+                                       FontSize="22" 
+                                       FontAttributes="Bold"
+                                       TextColor="#D4A437" 
+                                       HorizontalOptions="Center"/>
+
+                                <VerticalStackLayout Spacing="6">
+                                    <Label Text="✓ Standard seating" 
+                                           TextColor="#cccccc" 
+                                           FontSize="13"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="✓ Carry-on luggage" 
+                                           TextColor="#cccccc" 
+                                           FontSize="13"
+                                           HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+
+                                <Button Text="Select This Fare"
+                                        Command="{Binding SelectFareCommand}"
+                                        CommandParameter="{x:Static enums:SeatClass.Economy}"
+                                        BackgroundColor="#4B0012"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        HeightRequest="44"
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding IsEconomyNotSelected}"/>
+
+                                <Label Text="Selected"
+                                       IsVisible="{Binding IsEconomySelected}"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
                         </VerticalStackLayout>
                     </Frame>
 
-                    <!-- Executive Fare card -->
+                   
                     <Frame Style="{StaticResource FareCardStyle}" Grid.Column="1">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectFareCommand}" CommandParameter="{x:Static enums:SeatClass.Executive}"/>
                         </Frame.GestureRecognizers>
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Label Text="Executive Class" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
-                            <Label Text="{Binding ExecutivePrice, StringFormat='From €{0:0.00}'}" FontSize="16" TextColor="#cccccc" HorizontalOptions="Center"/>
-                            <Button Text="Select This Fare"
-                                    Command="{Binding SelectFareCommand}"
-                                    CommandParameter="{x:Static enums:SeatClass.Executive}"
-                                    BackgroundColor="#ffc107"
-                                    TextColor="Black"
-                                    CornerRadius="8"
-                                    IsVisible="{Binding IsExecutiveNotSelected}"/>
-                            <Label Text="Selected"
-                                   IsVisible="{Binding IsExecutiveSelected}"
-                                   TextColor="#ffc107"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"/>
+                        <VerticalStackLayout Spacing="0">
+                          
+                            <Grid BackgroundColor="#998144" Padding="16,12">
+                                <Label Text="Executive Class" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White" 
+                                       HorizontalOptions="Center"/>
+                            </Grid>
+
+                           
+                            <VerticalStackLayout Padding="20" Spacing="16" BackgroundColor="#1a1a1a">
+                                <Label Text="{Binding ExecutivePrice, StringFormat='From €{0:0.00}'}" 
+                                       FontSize="22" 
+                                       FontAttributes="Bold"
+                                       TextColor="#D4A437" 
+                                       HorizontalOptions="Center"/>
+
+                                <VerticalStackLayout Spacing="6">
+                                    <Label Text="✓ Premium seating" 
+                                           TextColor="#cccccc" 
+                                           FontSize="13"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="✓ Extra legroom" 
+                                           TextColor="#cccccc" 
+                                           FontSize="13"
+                                           HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+
+                                <Button Text="Select This Fare"
+                                        Command="{Binding SelectFareCommand}"
+                                        CommandParameter="{x:Static enums:SeatClass.Executive}"
+                                        BackgroundColor="#D4A437"
+                                        TextColor="Black"
+                                        CornerRadius="10"
+                                        HeightRequest="44"
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding IsExecutiveNotSelected}"/>
+
+                                <Label Text="Selected"
+                                       IsVisible="{Binding IsExecutiveSelected}"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
                         </VerticalStackLayout>
                     </Frame>
                 </Grid>
 
-                <!-- Seat selection after choosing fare -->
+              
                 <VerticalStackLayout IsVisible="{Binding IsFareClassSelected}">
                     <Label Text="{Binding SelectedFareClass, StringFormat='Now, please select your {0} seat'}"
                            FontSize="18"
@@ -134,28 +196,25 @@
                            HorizontalOptions="Center"
                            Margin="0,20,0,10"/>
 
-                    <!-- legenda -->
                     <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" HorizontalOptions="Center" Margin="0,0,0,20">
                         <StackLayout Orientation="Horizontal" Grid.Column="0">
-                            <Frame BackgroundColor="#333333" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
-                            <Label Text="Available" TextColor="#cccccc" VerticalOptions="Center"/>
+                            <Frame BackgroundColor="#D4A437" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
+                            <Label Text="Selected" TextColor="#cccccc" VerticalOptions="Center"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Grid.Column="1">
                             <Frame BackgroundColor="#666666" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
                             <Label Text="Occupied" TextColor="#cccccc" VerticalOptions="Center"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Grid.Column="2">
-                            <Frame BackgroundColor="#007bff" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
+                            <Frame BackgroundColor="#4B0012" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
                             <Label Text="Economy" TextColor="#cccccc" VerticalOptions="Center"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Grid.Column="3">
-                            <Frame BackgroundColor="#ffc107" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
+                            <Frame BackgroundColor="#998144" WidthRequest="20" HeightRequest="20" CornerRadius="4" Padding="0" Margin="0"/>
                             <Label Text="Executive" TextColor="#cccccc" VerticalOptions="Center"/>
                         </StackLayout>
                     </Grid>
 
-                    <!-- Airplane layout: CollectionView for seats -->
-                    <!-- Economy Seats Grid -->
                     <VerticalStackLayout IsVisible="{Binding ShowEconomySeatsGrid}">
                         <CollectionView ItemsSource="{Binding DisplayEconomySeats}">
                             <CollectionView.ItemsLayout>
@@ -168,14 +227,13 @@
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SelectSeatViewModel}}, Path=SelectSeatCommand}"
                                                                   CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
-                                        <Label Text="{Binding Letter}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding FullSeatDesignator}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontSize="16" FontAttributes="Bold"/>
                                     </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </VerticalStackLayout>
 
-                    <!-- Executive Seats Grid -->
                     <VerticalStackLayout IsVisible="{Binding ShowExecutiveSeatsGrid}">
                         <CollectionView ItemsSource="{Binding DisplayExecutiveSeats}">
                             <CollectionView.ItemsLayout>
@@ -188,14 +246,13 @@
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SelectSeatViewModel}}, Path=SelectSeatCommand}"
                                                                   CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
-                                        <Label Text="{Binding Letter}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding FullSeatDesignator}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontSize="16" FontAttributes="Bold"/>
                                     </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </VerticalStackLayout>
 
-                    <!-- seat info and confirm button -->
                     <VerticalStackLayout HorizontalOptions="Center" Margin="0,20,0,0">
                         <Label Text="Selected Seat" IsVisible="{Binding SelectedSeat, TargetNullValue='False', FallbackValue='True'}" FontSize="18" FontAttributes="Bold" TextColor="White"/>
                         <Label Text="{Binding SelectedSeat.Row, StringFormat='Row {0}'}" IsVisible="{Binding SelectedSeat, TargetNullValue='False', FallbackValue='True'}" TextColor="#D4A437" FontSize="22" FontAttributes="Bold"/>

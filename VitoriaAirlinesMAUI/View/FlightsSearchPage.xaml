@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="VitoriaAirlinesMAUI.View.FlightsSearchPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -14,7 +13,7 @@
     <ContentPage.Resources>
         <converters:CountryCodeToFlagUrlConverter x:Key="CountryCodeToFlagUrlConverter" />
 
-        <!-- General styles -->
+     
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
@@ -51,9 +50,10 @@
             <Setter Property="Padding" Value="12,10"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
-        <!-- RadioButton styling for selection indicator -->
+      
         <Style TargetType="RadioButton">
             <Setter Property="TextColor" Value="White"/>
+            <Setter Property="BackgroundColor" Value="#1a1a1a"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -65,11 +65,13 @@
                         <VisualState x:Name="Checked">
                             <VisualState.Setters>
                                 <Setter Property="TextColor" Value="#D4A437" />
+                                <Setter Property="BackgroundColor" Value="#1a1a1a" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Unchecked">
                             <VisualState.Setters>
                                 <Setter Property="TextColor" Value="White" />
+                                <Setter Property="BackgroundColor" Value="#1a1a1a" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -79,11 +81,11 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <!-- Main Grid Layout -->
+ 
         <Grid Padding="12" RowSpacing="10" 
               RowDefinitions="Auto,Auto,*,Auto">
 
-            <!-- Row 0: Trip Type Selector (Roundtrip, One-way) -->
+         
             <Grid Grid.Row="0" ColumnDefinitions="*,*" HeightRequest="40" Margin="0,10,0,10" 
                   BackgroundColor="#1a1a1a" RowDefinitions="*,2">
                 <RadioButton Content="Roundtrip" IsChecked="{Binding IsRoundTrip}" 
@@ -97,16 +99,16 @@
                          IsVisible="{Binding IsOneWayTrip}" Margin="0,-2,0,0"/>
             </Grid>
 
-            <!-- Row 1: Search Form Container -->
+      
             <Frame Grid.Row="1" BackgroundColor="#1a1a1a" BorderColor="#4B0012" 
                    Padding="20" Margin="0">
-                <!-- Form Content Grid -->
+     
                 <Grid RowSpacing="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
-                    <!-- Row 0: From Airport Label -->
+                
                     <Label Grid.Row="0" Text="FROM" TextColor="#cccccc" FontSize="12"/>
 
-                    <!-- Row 1: From Airport Picker -->
+                 
                     <Grid Grid.Row="1" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="50" Margin="0,4">
                         <Image Grid.Column="0"
                                Source="{Binding SelectedOriginAirport.CountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
@@ -119,10 +121,9 @@
                                 SelectedItem="{Binding SelectedOriginAirport}"/>
                     </Grid>
 
-                    <!-- Row 2: To Airport Label -->
+                  
                     <Label Grid.Row="2" Text="TO" TextColor="#cccccc" FontSize="12" Margin="0,5,0,0"/>
 
-                    <!-- Row 3: To Airport Picker and Swap Button -->
                     <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
                         <Grid Grid.Column="0" ColumnDefinitions="Auto,*" ColumnSpacing="10" HeightRequest="50">
                             <Image Grid.Column="0"
@@ -144,14 +145,14 @@
                                      Command="{Binding SwapAirportsCommand}"/>
                     </Grid>
 
-                    <!-- Row 4: Depart Date Label -->
+                 
                     <Label Grid.Row="4" Text="DEPART" TextColor="#cccccc" FontSize="12" Margin="0,5,0,0"/>
 
-                    <!-- Row 5: Depart Date Picker -->
+                 
                     <DatePicker Grid.Row="5" Date="{Binding DepartureDate}" 
                                 MinimumDate="{x:Static system:DateTime.Today}" Format="dd/MM/yyyy"/>
 
-                    <!-- Row 6: Return Date (conditionally visible) -->
+                   
                     <Grid Grid.Row="6" RowDefinitions="Auto,Auto" RowSpacing="4" 
                           IsVisible="{Binding ShowReturnDate}">
                         <Label Grid.Row="0" Text="RETURN" TextColor="#cccccc" FontSize="12"/>
@@ -159,24 +160,28 @@
                                     MinimumDate="{Binding DepartureDate}" Format="dd/MM/yyyy"/>
                     </Grid>
 
-                    <!-- Row 7: Travelers Label -->
+               
                     <Label Grid.Row="7" Text="TRAVELERS" TextColor="#cccccc" FontSize="12" Margin="0,5,0,0"/>
 
-                    <!-- Row 8: Travelers Control -->
+
                     <Grid Grid.Row="8" ColumnDefinitions="Auto,*,Auto" HeightRequest="60" 
-                          BackgroundColor="#1a1a1a" Padding="10" Margin="0,4">
+      BackgroundColor="#1a1a1a" Padding="10" Margin="0,4">
                         <Image Grid.Column="0" Source="person_icon.png" 
-                               VerticalOptions="Center" WidthRequest="24" HeightRequest="24"/>
+           VerticalOptions="Center" WidthRequest="24" HeightRequest="24"/>
                         <Label Grid.Column="1" Text="{Binding NumberOfPassengers}" 
-                               HorizontalOptions="Center" VerticalOptions="Center" FontSize="16"/>
-                        <Stepper Grid.Column="2" Value="{Binding NumberOfPassengers}" 
-                                 Minimum="1" Maximum="10" HorizontalOptions="End" />
+           HorizontalOptions="Center" VerticalOptions="Center" FontSize="16"/>
+                        <Stepper Grid.Column="2" 
+             Value="{Binding NumberOfPassengers}" 
+             Minimum="1" Maximum="1" 
+             IsEnabled="False"
+             HorizontalOptions="End" />
                     </Grid>
+
 
                 </Grid>
             </Frame>
 
-            <!-- Row 2: Error Message (if any) -->
+         
             <Label Grid.Row="2" Text="{Binding ErrorMessage}"
                    TextColor="Red"
                    IsVisible="{Binding HasError}"
@@ -184,7 +189,7 @@
                    VerticalOptions="Start"
                    Margin="0,10,0,0"/>
 
-            <!-- Row 3: Search Flights Button -->
+           
             <Button Grid.Row="3" Text="Search Flights"
                     Command="{Binding SearchFlightsCommand}"
                     IsEnabled="{Binding IsNotBusy}"

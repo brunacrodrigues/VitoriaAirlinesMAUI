@@ -12,6 +12,7 @@
     Shell.TabBarBackgroundColor="#4B0012"
     Shell.TabBarTitleColor="#D4A437"
     Shell.TabBarUnselectedColor="#D4A437"
+    Shell.TabBarForegroundColor="#D4A437" 
     Title="VitoriaAirlinesMAUI">
 
 

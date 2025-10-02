@@ -284,7 +284,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// Updates when AllSeats collection changes through manual property change notifications.
         /// </summary>
         public ObservableCollection<SeatViewModel> DisplayEconomySeats =>
-            new ObservableCollection<SeatViewModel>(AllSeats.Where(s => s.Class == SeatClass.Economy && !s.IsOccupied));
+            new ObservableCollection<SeatViewModel>(AllSeats.Where(s => s.Class == SeatClass.Economy));
 
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// Updates when AllSeats collection changes through manual property change notifications.
         /// </summary>
         public ObservableCollection<SeatViewModel> DisplayExecutiveSeats =>
-            new ObservableCollection<SeatViewModel>(AllSeats.Where(s => s.Class == SeatClass.Executive && !s.IsOccupied));
+            new ObservableCollection<SeatViewModel>(AllSeats.Where(s => s.Class == SeatClass.Executive));
 
 
         /// <summary>
@@ -542,7 +542,6 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
             try
             {
-                // Validate required data
                 if (SelectedSeat == null || FlightSeatsResponse == null || FlightSearchResult == null)
                 {
                     await Shell.Current.DisplayAlert("Error", "Please select a fare and a seat.", "OK");
@@ -550,14 +549,11 @@ namespace VitoriaAirlinesMAUI.ViewModel
                 }
 
 
-                // 2. VALIDAÇÃO DO PERFIL PARA CLIENTES AUTENTICADOS (Nova Lógica)
+
                 if (Preferences.ContainsKey("Token"))
                 {
                     var profileResponse = await _profileService.GetProfileAsync();
 
-                    // Nota: Verificamos apenas se o perfil existe. A validação de preenchimento (Passport/Country) 
-                    // será feita no BookingConfirmationViewModel/Backend, mas a navegação para a ProfilePage
-                    // é feita aqui para o utilizador corrigir.
                     if (!profileResponse.IsSuccess || profileResponse.Data == null)
                     {
                         bool goToProfile = await Shell.Current.DisplayAlert(

@@ -99,29 +99,27 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// <summary>
         /// Computed property that returns the appropriate background color based on seat state.
         /// Priority order: Selected (green) > Occupied (gray) > Class-based colors.
-        /// Updates automatically when IsSelected changes due to NotifyPropertyChangedFor attribute.
-        /// 
-        /// Color scheme:
-        /// - Selected: Green (#28a745) - highest priority
-        /// - Occupied: Gray (#666666) - second priority  
-        /// - Economy: Blue (#007bff) - available economy seats
-        /// - Executive: Yellow (#ffc107) - available executive seats
-        /// - Default: Dark gray (#333333) - fallback color
-        /// </summary>
+        /// Updates automatically when IsSelected changes due to NotifyPropertyChangedFor attribute.       
+        /// </summary>       
         public Color BackgroundColor
         {
             get
             {
-                if (IsSelected) return Color.FromArgb("#28a745"); // Verde para selecionado
-                if (IsOccupied) return Color.FromArgb("#666666");  // Cinzento para ocupado
+                if (IsSelected) return Color.FromArgb("#D4A437");
+
+
+                if (IsOccupied) return Color.FromArgb("#666666");
+
+
                 return Class switch
                 {
-                    SeatClass.Economy => Color.FromArgb("#007bff"),    // Azul para Economy
-                    SeatClass.Executive => Color.FromArgb("#ffc107"),  // Amarelo para Executive
-                    _ => Color.FromArgb("#333333")                     // Cor padrão
+                    SeatClass.Economy => Color.FromArgb("#4B0012"),    // Vinho Escuro para Economy
+                    SeatClass.Executive => Color.FromArgb("#998144"),  // Castanho/Preto Escuro para Executive
+                    _ => Color.FromArgb("#998144")                     // Cor padrão
                 };
             }
         }
+
 
         /// <summary>
         /// Computed property that returns the appropriate border color based on seat state.
@@ -172,6 +170,14 @@ namespace VitoriaAirlinesMAUI.ViewModel
         /// Used by UI controls to disable touch/click events on unavailable seats.
         /// </summary>
         public bool IsInputTransparent => IsOccupied;
+
+
+
+        /// <summary>
+        /// Gets the full seat designator (e.g., "12A") by combining Row and Letter.
+        /// Used for the seat button display.
+        /// </summary>
+        public string FullSeatDesignator => $"{Row}{Letter}";
 
         #endregion
     }

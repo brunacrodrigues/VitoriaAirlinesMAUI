@@ -1,4 +1,3 @@
-
 <ContentPage
     x:Class="VitoriaAirlinesMAUI.View.BoardingPassPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -12,12 +11,54 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <VerticalStackLayout Padding="20" Spacing="25">
+            <VerticalStackLayout Padding="20" Spacing="24">
 
-                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#D4A437"/>
-                <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}" TextColor="Red" HorizontalOptions="Center"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                                   IsVisible="{Binding IsBusy}" 
+                                   Color="#D4A437"
+                                   HeightRequest="40"
+                                   WidthRequest="40"
+                                   HorizontalOptions="Center"/>
 
-                <!-- Main Boarding Pass Card -->
+                <Border BackgroundColor="#DC3545"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="16"
+                        IsVisible="{Binding HasError}">
+                    <Label Text="{Binding ErrorMessage}"
+                           TextColor="White"
+                           FontSize="13"
+                           HorizontalTextAlignment="Center"/>
+                </Border>
+
+           
+                <VerticalStackLayout Spacing="12" IsVisible="{Binding HasBoardingPass}">
+                    <Label Text="YOUR BOARDING PASS"
+                           FontSize="12"
+                           TextColor="#888888"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+
+                    <Border BackgroundColor="#1a1a1a"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="16"
+                            Stroke="#4B0012"
+                            StrokeThickness="1">
+                        <Label FontSize="13"
+                               TextColor="White"
+                               HorizontalTextAlignment="Center"
+                               LineBreakMode="WordWrap">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Present this boarding pass at security and your gate. "/>
+                                    <Span Text="Ensure your device remains charged " TextColor="#D4A437"/>
+                                    <Span Text="or have a printed copy available."/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Border>
+                </VerticalStackLayout>
+
+               
                 <Frame BackgroundColor="White"
                        CornerRadius="15"
                        Padding="0"
@@ -27,56 +68,87 @@
 
                     <Grid RowDefinitions="Auto, Auto, *, Auto" Padding="20" RowSpacing="20">
 
-                        <!-- HEADER: Airline & Ticket Info -->
                         <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Padding="0,0,0,10">
-                            <Label Grid.Column="0" Text="Vitoria Airlines" FontSize="20" FontAttributes="Bold" TextColor="#0e0e0e"/>
-                            <Label Grid.Column="1" Text="{Binding BoardingPass.TicketId, StringFormat='TKT: {0}'}" FontSize="12" TextColor="#333333"/>
+                            <Image Source="logo_va.png" 
+        WidthRequest="145" 
+        HeightRequest="70" 
+        HorizontalOptions="Start"
+        Margin="0,0,0,0"/>
+                            <Label Grid.Column="1" 
+                                   Text="{Binding BoardingPass.TicketId, StringFormat='TKT: {0}'}" 
+                                   FontSize="12" 
+                                   TextColor="#333333"/>
                         </Grid>
 
-                        <!-- Separator -->
                         <BoxView Grid.Row="1" HeightRequest="1" Color="#cccccc" />
 
-                        <!-- MAIN DETAILS: Route, Flight, Passenger -->
+                      
                         <Grid Grid.Row="2" ColumnDefinitions="2*, 1*" ColumnSpacing="20" Padding="0,10,0,10">
 
-                            <!-- Left Column: Passenger, Route -->
+                    
                             <VerticalStackLayout Grid.Column="0" Spacing="15">
 
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="PASSENGER" FontSize="10" TextColor="#666666"/>
-                                    <Label Text="{Binding BoardingPass.PassengerName}" FontSize="24" FontAttributes="Bold" TextColor="#0e0e0e"/>
+                                    <Label Text="{Binding BoardingPass.PassengerName}" 
+                                           FontSize="24" 
+                                           FontAttributes="Bold" 
+                                           TextColor="#0e0e0e"/>
                                 </VerticalStackLayout>
 
-                                <!-- Route -->
+                       
                                 <Grid ColumnDefinitions="*, 30, *" ColumnSpacing="0">
                                     <VerticalStackLayout Grid.Column="0" Spacing="0">
                                         <Label Text="FROM" FontSize="10" TextColor="#666666"/>
-                                        <Label Text="{Binding BoardingPass.FromAirportIATA}" FontSize="32" FontAttributes="Bold" TextColor="#0e0e0e"/>
-                                        <Label Text="{Binding BoardingPass.FromAirportFullName}" FontSize="12" TextColor="#333333"/>
+                                        <Label Text="{Binding BoardingPass.FromAirportIATA}" 
+                                               FontSize="32" 
+                                               FontAttributes="Bold" 
+                                               TextColor="#0e0e0e"/>
+                                        <Label Text="{Binding BoardingPass.FromAirportFullName}" 
+                                               FontSize="12" 
+                                               TextColor="#333333"/>
                                     </VerticalStackLayout>
 
-                                    <Label Grid.Column="1" Text="✈" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#D4A437"/>
+                                    <Label Grid.Column="1" 
+                                           Text="✈" 
+                                           FontSize="20" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" 
+                                           TextColor="#D4A437"/>
 
                                     <VerticalStackLayout Grid.Column="2" Spacing="0">
                                         <Label Text="TO" FontSize="10" TextColor="#666666"/>
-                                        <Label Text="{Binding BoardingPass.ToAirportIATA}" FontSize="32" FontAttributes="Bold" TextColor="#0e0e0e"/>
-                                        <Label Text="{Binding BoardingPass.ToAirportFullName}" FontSize="12" TextColor="#333333"/>
+                                        <Label Text="{Binding BoardingPass.ToAirportIATA}" 
+                                               FontSize="32" 
+                                               FontAttributes="Bold" 
+                                               TextColor="#0e0e0e"/>
+                                        <Label Text="{Binding BoardingPass.ToAirportFullName}" 
+                                               FontSize="12" 
+                                               TextColor="#333333"/>
                                     </VerticalStackLayout>
                                 </Grid>
                             </VerticalStackLayout>
 
-                            <!-- Right Column: Seat, Gate, Boarding Time -->
+                         
                             <VerticalStackLayout Grid.Column="1" Spacing="15">
 
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="FLIGHT" FontSize="10" TextColor="#666666"/>
-                                    <Label Text="{Binding BoardingPass.FlightNumber}" FontSize="20" FontAttributes="Bold" TextColor="#0e0e0e"/>
+                                    <Label Text="{Binding BoardingPass.FlightNumber}" 
+                                           FontSize="20" 
+                                           FontAttributes="Bold" 
+                                           TextColor="#0e0e0e"/>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="SEAT" FontSize="10" TextColor="#666666"/>
-                                    <Label Text="{Binding BoardingPass.SeatNumber}" FontSize="28" FontFamily="OutfitExtraBold" TextColor="#D4A437"/>
-                                    <Label Text="{Binding BoardingPass.SeatClass}" FontSize="12" TextColor="#0e0e0e"/>
+                                    <Label Text="{Binding BoardingPass.SeatNumber}" 
+                                           FontSize="28" 
+                                           FontFamily="OutfitExtraBold" 
+                                           TextColor="#D4A437"/>
+                                    <Label Text="{Binding BoardingPass.SeatClass}" 
+                                           FontSize="12" 
+                                           TextColor="#0e0e0e"/>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Spacing="0">
@@ -94,25 +166,32 @@
                             </VerticalStackLayout>
                         </Grid>
 
-                        <!-- FOOTER: Departure Time & Barcode -->
+                 
                         <Grid Grid.Row="3" ColumnDefinitions="*, 2*" Padding="0,10,0,0">
                             <VerticalStackLayout Grid.Column="0" Spacing="0">
                                 <Label Text="DEPARTURE (UTC)" FontSize="10" TextColor="#666666"/>
-                                <Label Text="{Binding BoardingPass.DepartureUtc, StringFormat='{0:MMM dd, yyyy}'}" FontSize="16" FontFamily="OutfitBold" TextColor="#0e0e0e"/>
-                                <Label Text="{Binding BoardingPass.DepartureUtc, StringFormat='{0:HH:mm}'}" FontSize="24" FontFamily="OutfitExtraBold" TextColor="#0e0e0e"/>
+                                <Label Text="{Binding BoardingPass.DepartureUtc, StringFormat='{0:MMM dd, yyyy}'}" 
+                                       FontSize="16" 
+                                       FontFamily="OutfitBold" 
+                                       TextColor="#0e0e0e"/>
+                                <Label Text="{Binding BoardingPass.DepartureUtc, StringFormat='{0:HH:mm}'}" 
+                                       FontSize="24" 
+                                       FontFamily="OutfitExtraBold" 
+                                       TextColor="#0e0e0e"/>
                             </VerticalStackLayout>
 
-                            <!-- Barcode generated with ZXing -->
-                            <VerticalStackLayout Grid.Column="1" Spacing="5" HorizontalOptions="Center" VerticalOptions="Center">
+                      
+                            <VerticalStackLayout Grid.Column="1" 
+                                                 Spacing="5" 
+                                                 HorizontalOptions="Center" 
+                                                 VerticalOptions="Center">
 
-                                <!-- Frame for barcode -->
                                 <Frame BackgroundColor="White" 
                                        Padding="5"
                                        CornerRadius="3"
                                        BorderColor="#dee2e6"
                                        HasShadow="False">
 
-                                    <!-- ZXing barcode generator -->
                                     <zxing:BarcodeGeneratorView
                                         Value="{Binding BoardingPass.TicketBarcodeValue}"
                                         Format="Code128"
@@ -123,33 +202,38 @@
 
                                 </Frame>
 
-                                <!-- Ticket code below barcode -->
                                 <Label Text="{Binding BoardingPass.TicketBarcodeValue}" 
                                        FontFamily="Courier" 
                                        FontSize="10" 
                                        TextColor="#333333"
                                        HorizontalOptions="Center"/>
 
-                                <Label Text="Scan at Gate" FontSize="9" TextColor="#666666" HorizontalOptions="Center"/>
+                                <Label Text="Scan at Gate" 
+                                       FontSize="9" 
+                                       TextColor="#666666" 
+                                       HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Grid>
                     </Grid>
                 </Frame>
 
-                <!-- Download Button with Loading State -->
+
                 <Button IsVisible="{Binding HasBoardingPass}"
                         IsEnabled="{Binding IsDownloadEnabled}"
-                        BackgroundColor="#007bff"
-                        TextColor="White"
-                        CornerRadius="8"
+                        BackgroundColor="#D4A437"
+                        TextColor="#0e0e0e"
+                        CornerRadius="12"
                         FontAttributes="Bold"
+                        HeightRequest="54"
+                        FontSize="16"
                         Command="{Binding DownloadTicketCommand}">
+                    
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsDownloading}" Value="True">
-                            <Setter Property="Text" Value="📄 Downloading..." />
+                            <Setter Property="Text" Value="Downloading..." />
                         </DataTrigger>
                         <DataTrigger TargetType="Button" Binding="{Binding IsDownloading}" Value="False">
-                            <Setter Property="Text" Value="📄 Download Ticket (PDF)" />
+                            <Setter Property="Text" Value="Download Ticket (PDF)" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
@@ -157,4 +241,4 @@
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
-</ContentPage>    
+</ContentPage>

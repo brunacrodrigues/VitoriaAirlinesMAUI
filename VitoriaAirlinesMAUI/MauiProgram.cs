@@ -27,15 +27,16 @@ namespace VitoriaAirlinesMAUI
                     fonts.AddFont("Outfit-SemiBold.ttf", "OutfitSemiBold");
                     fonts.AddFont("Outfit-Medium.ttf", "OutfitMedium");
                 });
-            ;
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JFaF5cXGRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWH9ecXZVRWFZV01/XkdWYEg=");
 
 
             builder.Services.AddTransient<AuthHeaderHandler>();
 
 
-            var baseUri = new Uri("http://10.0.2.2:5283/");
+            //var baseUri = new Uri("http://10.0.2.2:5283/");
             //var baseUri = new Uri("http://192.168.1.254:5283/");
-            //var baseUri = new Uri("http://vitoriaairlinesapi.eu-north-1.elasticbeanstalk.com/");
+            var baseUri = new Uri("http://vitoriaairlinesapi.eu-north-1.elasticbeanstalk.com/");
 
 
 

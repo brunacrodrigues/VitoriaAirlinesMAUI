@@ -14,268 +14,398 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="12" Spacing="10">
+        <VerticalStackLayout Padding="20" Spacing="24">
 
-            <!-- No flights message -->
-            <VerticalStackLayout IsVisible="{Binding IsNoFlightsMessageVisible}">
-                <Label Text="No flights found for your selected criteria."
-                       TextColor="#cccccc"
-                       FontSize="18"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       Margin="20" />
+     
+            <VerticalStackLayout IsVisible="{Binding IsNoFlightsMessageVisible}" 
+                                 Spacing="15" 
+                                 VerticalOptions="Center"
+                                 Padding="40">
+                <Image Source="myflights_icon.png" 
+WidthRequest="125" 
+HeightRequest="50" 
+HorizontalOptions="Center"
+Margin="0,0,10,5"/>
+                <Label Text="No flights found"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+                <Label Text="Try adjusting your search criteria"
+                       FontSize="14"
+                       TextColor="#888888"
+                       HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
-            <VerticalStackLayout IsVisible="{Binding HasAnyFlights}">
+            <VerticalStackLayout IsVisible="{Binding HasAnyFlights}" Spacing="24">
 
-                <!-- OUTBOUND -->
-                <Label Text="Outbound Flights"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       Margin="0,10,0,0"
-                       IsVisible="{Binding HasOutboundFlights}"/>
+               
+                <VerticalStackLayout Spacing="12" IsVisible="{Binding HasOutboundFlights}">
+                    <Label Text="OUTBOUND FLIGHTS"
+                           FontSize="12"
+                           TextColor="#888888"
+                           FontAttributes="Bold"
+                           Margin="4,0,0,0"/>
 
-                <CollectionView ItemsSource="{Binding OutboundFlights}"
-                                IsVisible="{Binding HasOutboundFlights}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:FlightSearchResult">
-                            <Frame HasShadow="False"
-                                   Padding="0"
-                                   Margin="0,5,0,5"
-                                   CornerRadius="8">
-                                <Frame.Style>
-                                    <Style TargetType="Frame">
-                                        <!-- Default Frame styles -->
-                                        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
-                                        <Setter Property="BorderColor" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <!-- Trigger for when this item's IsSelected is true -->
-                                            <DataTrigger TargetType="Frame"
-                                                         Binding="{Binding IsSelected}"
-                                                         Value="True">
-                                                <Setter Property="BackgroundColor" Value="#331122"/>
-                                                <Setter Property="BorderColor" Value="#D4A437"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Frame.Style>
-                                <VerticalStackLayout Spacing="0">
-                                    <Grid ColumnDefinitions="*, Auto, *, Auto" Padding="10">
-                                        <!-- Departure -->
-                                        <VerticalStackLayout Grid.Column="0">
-                                            <Label Text="{Binding DepartureUtc, StringFormat='{0:HH:mm}'}"
-                                                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
-                                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
-                                                <Image Grid.Column="0" HeightRequest="16" WidthRequest="24"
-                                                       Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
-                                                       IsVisible="{Binding IsOriginCountryCodeVisible}"/>
-                                                <Label Grid.Column="1" Text="{Binding OriginAirportIATA}"
-                                                       FontSize="22" FontAttributes="Bold" TextColor="White"/>
-                                            </Grid>
-                                        </VerticalStackLayout>
+                    <CollectionView ItemsSource="{Binding OutboundFlights}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:FlightSearchResult">
+                                <Frame HasShadow="True"
+                                       Padding="0"
+                                       Margin="0,0,0,12"
+                                       CornerRadius="16"
+                                       BackgroundColor="#1a1a1a"
+                                       BorderColor="Transparent">
+                                    <Frame.Style>
+                                        <Style TargetType="Frame">
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Frame"
+                                                             Binding="{Binding IsSelected}"
+                                                             Value="True">
+                                                    <Setter Property="BorderColor" Value="#D4A437"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Frame.Style>
 
-                                        <!-- Arrow -->
-                                        <Label Grid.Column="1" Text="→" FontSize="28" TextColor="White"
-                                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout Spacing="0">
+                                
+                                        <Grid ColumnDefinitions="*,Auto,*,Auto" 
+                                              Padding="20,16"
+                                              RowSpacing="8">
 
-                                        <!-- Arrival -->
-                                        <VerticalStackLayout Grid.Column="2">
-                                            <Label Text="{Binding ArrivalUtc, StringFormat='{0:HH:mm}'}"
-                                                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
-                                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
-                                                <Image Grid.Column="0" HeightRequest="16" WidthRequest="24"
-                                                       Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
-                                                       IsVisible="{Binding IsDestinationCountryCodeVisible}"/>
-                                                <Label Grid.Column="1" Text="{Binding DestinationAirportIATA}"
-                                                       FontSize="22" FontAttributes="Bold" TextColor="White"/>
-                                            </Grid>
-                                        </VerticalStackLayout>
+                                 
+                                            <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                                <Label Text="{Binding DepartureUtc, StringFormat='{0:HH:mm}'}"
+                                                       FontSize="24" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="White"/>
+                                                <HorizontalStackLayout Spacing="8">
+                                                    <Border StrokeShape="RoundRectangle 4"
+                                                            BackgroundColor="#2a2a2a"
+                                                            Padding="0"
+                                                            WidthRequest="28"
+                                                            HeightRequest="20"
+                                                            VerticalOptions="Center"
+                                                            IsVisible="{Binding IsOriginCountryCodeVisible}">
+                                                        <Image Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
+                                                               Aspect="AspectFill"/>
+                                                    </Border>
+                                                    <Label Text="{Binding OriginAirportIATA}"
+                                                           FontSize="20" 
+                                                           FontAttributes="Bold" 
+                                                           TextColor="White"
+                                                           VerticalOptions="Center"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
 
-                                        <!-- Price -->
-                                        <VerticalStackLayout Grid.Column="3" HorizontalOptions="End">
-                                            <Label Text="{Binding EconomyClassPrice, StringFormat='€{0:0.00}'}"
-                                                   FontSize="24" FontAttributes="Bold" TextColor="#D4A437"/>
-                                        </VerticalStackLayout>
-                                    </Grid>
+                                       
+                                            <Label Grid.Column="1" 
+                                                   Text="→" 
+                                                   FontSize="32" 
+                                                   TextColor="#D4A437"
+                                                   VerticalOptions="Center" 
+                                                   HorizontalOptions="Center"
+                                                   Margin="10,0"/>
 
-                                    <!-- Extra info -->
-                                    <Grid ColumnDefinitions="Auto, Auto, Auto" ColumnSpacing="10" Padding="10,0">
-                                        <Label Grid.Column="0" Text="{Binding Duration, StringFormat='• {0:h\\h\\ m\\m}'}"
-                                               FontSize="14" TextColor="#cccccc"/>
-                                        <Label Grid.Column="1" Text="• Nonstop" FontSize="14" TextColor="#cccccc"/>
-                                        <Label Grid.Column="2" Text="{Binding FlightNumber, StringFormat='• Flight {0}'}"
-                                               FontSize="14" TextColor="#cccccc"/>
-                                    </Grid>
+                                          
+                                            <VerticalStackLayout Grid.Column="2" Spacing="6">
+                                                <Label Text="{Binding ArrivalUtc, StringFormat='{0:HH:mm}'}"
+                                                       FontSize="24" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="White"/>
+                                                <HorizontalStackLayout Spacing="8">
+                                                    <Border StrokeShape="RoundRectangle 4"
+                                                            BackgroundColor="#2a2a2a"
+                                                            Padding="0"
+                                                            WidthRequest="28"
+                                                            HeightRequest="20"
+                                                            VerticalOptions="Center"
+                                                            IsVisible="{Binding IsDestinationCountryCodeVisible}">
+                                                        <Image Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
+                                                               Aspect="AspectFill"/>
+                                                    </Border>
+                                                    <Label Text="{Binding DestinationAirportIATA}"
+                                                           FontSize="20" 
+                                                           FontAttributes="Bold" 
+                                                           TextColor="White"
+                                                           VerticalOptions="Center"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
 
-                                    <Grid ColumnDefinitions="*" Padding="10,10,10,10">
-                                        <Label Text="Vitoria Airlines"
-                                               FontSize="16" TextColor="#D4A437"/>
-                                    </Grid>
+                                      
+                                            <VerticalStackLayout Grid.Column="3" 
+                                                                 HorizontalOptions="End"
+                                                                 VerticalOptions="Center">
+                                                <Label Text="{Binding EconomyClassPrice, StringFormat='€{0:0.00}'}"
+                                                       FontSize="24" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="#D4A437"
+                                                       HorizontalOptions="End"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
 
-                                    <!-- Button to select outbound flight -->
-                                    <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FlightSearchResultsViewModel}}, Path=SelectOutboundFlightCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Margin="10"
-                                            BackgroundColor="#D4A437"
-                                            TextColor="#0e0e0e"
-                                            CornerRadius="8"
-                                            FontAttributes="Bold">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Text" Value="Select Outbound Flight"/>
-                                                <Style.Triggers>
-                                                    <!-- Bind to IsSelected property of the current item -->
-                                                    <DataTrigger TargetType="Button"
-                                                                 Binding="{Binding IsSelected}"
-                                                                 Value="True">
-                                                        <Setter Property="Text" Value="Selected"/>
-                                                        <!-- Optional: Change background color for selected button state -->
-                                                        <!-- <Setter Property="BackgroundColor" Value="#8BC34A"/> -->
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </VerticalStackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                
+                                        <BoxView HeightRequest="1" 
+                                                 BackgroundColor="#2a2a2a"
+                                                 Margin="20,0"/>
 
-                <!-- One-Way Button -->
+                                    
+                                        <HorizontalStackLayout Padding="20,12" Spacing="16">
+                                            <Label Text="{Binding Duration, StringFormat='{0:h\\h\\ m\\m}'}"
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="·" 
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="Nonstop" 
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="·" 
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="{Binding FlightNumber}"
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                        </HorizontalStackLayout>
+
+                                
+                                        <Grid ColumnDefinitions="*,Auto" 
+                                              Padding="20,0,20,16"
+                                              ColumnSpacing="12">
+                                            <Label Text="Vitoria Airlines"
+                                                   FontSize="15" 
+                                                   TextColor="#D4A437"
+                                                   VerticalOptions="Center"
+                                                   FontAttributes="Bold"/>
+
+                                            <Button Grid.Column="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FlightSearchResultsViewModel}}, Path=SelectOutboundFlightCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    BackgroundColor="#D4A437"
+                                                    TextColor="#0e0e0e"
+                                                    CornerRadius="10"
+                                                    FontAttributes="Bold"
+                                                    HeightRequest="44"
+                                                    WidthRequest="140">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Text" Value="Select"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Button"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="Text" Value="✓ Selected"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+             
                 <Button Text="Book Flight"
                         IsVisible="{Binding CanBookOneWayFlight}"
                         Command="{Binding BookFlightsCommand}"
-                        Margin="0,20,0,0"
                         BackgroundColor="#4B0012"
                         TextColor="White"
-                        CornerRadius="8"
-                        FontAttributes="Bold"/>
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        HeightRequest="54"
+                        FontSize="16">                   
+                </Button>
 
-                <!-- RETURN -->
-                <Label Text="Return Flights"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       Margin="0,20,0,0"
-                       IsVisible="{Binding HasReturnFlights}"/>
+            
+                <VerticalStackLayout Spacing="12" IsVisible="{Binding HasReturnFlights}">
+                    <Label Text="RETURN FLIGHTS"
+                           FontSize="12"
+                           TextColor="#888888"
+                           FontAttributes="Bold"
+                           Margin="4,0,0,0"/>
 
-                <CollectionView ItemsSource="{Binding ReturnFlights}"
-                                IsVisible="{Binding HasReturnFlights}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:FlightSearchResult">
-                            <Frame HasShadow="False"
-                                   Padding="0"
-                                   Margin="0,5,0,5"
-                                   CornerRadius="8">
-                                <Frame.Style>
-                                    <Style TargetType="Frame">
-                                        <!-- Default Frame styles -->
-                                        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
-                                        <Setter Property="BorderColor" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <!-- Trigger for when this item's IsSelected is true -->
-                                            <DataTrigger TargetType="Frame"
-                                                         Binding="{Binding IsSelected}"
-                                                         Value="True">
-                                                <Setter Property="BackgroundColor" Value="#331122"/>
-                                                <Setter Property="BorderColor" Value="#D4A437"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Frame.Style>
-                                <VerticalStackLayout Spacing="0">
-                                    <Grid ColumnDefinitions="*, Auto, *, Auto" Padding="10">
-                                        <!-- Departure -->
-                                        <VerticalStackLayout Grid.Column="0">
-                                            <Label Text="{Binding DepartureUtc, StringFormat='{0:HH:mm}'}"
-                                                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
-                                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
-                                                <Image Grid.Column="0" HeightRequest="16" WidthRequest="24"
-                                                       Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
-                                                       IsVisible="{Binding IsOriginCountryCodeVisible}"/>
-                                                <Label Grid.Column="1" Text="{Binding OriginAirportIATA}"
-                                                       FontSize="22" FontAttributes="Bold" TextColor="White"/>
-                                            </Grid>
-                                        </VerticalStackLayout>
+                    <CollectionView ItemsSource="{Binding ReturnFlights}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:FlightSearchResult">
+                                <Frame HasShadow="True"
+                                       Padding="0"
+                                       Margin="0,0,0,12"
+                                       CornerRadius="16"
+                                       BackgroundColor="#1a1a1a"
+                                       BorderColor="Transparent">
+                                    <Frame.Style>
+                                        <Style TargetType="Frame">
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Frame"
+                                                             Binding="{Binding IsSelected}"
+                                                             Value="True">
+                                                    <Setter Property="BorderColor" Value="#D4A437"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Frame.Style>
 
-                                        <!-- Arrow -->
-                                        <Label Grid.Column="1" Text="→" FontSize="28" TextColor="White"
-                                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <VerticalStackLayout Spacing="0">
+                                 
+                                        <Grid ColumnDefinitions="*,Auto,*,Auto" 
+                                              Padding="20,16"
+                                              RowSpacing="8">
 
-                                        <!-- Arrival -->
-                                        <VerticalStackLayout Grid.Column="2">
-                                            <Label Text="{Binding ArrivalUtc, StringFormat='{0:HH:mm}'}"
-                                                   FontSize="20" FontAttributes="Bold" TextColor="White"/>
-                                            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="5">
-                                                <Image Grid.Column="0" HeightRequest="16" WidthRequest="24"
-                                                       Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
-                                                       IsVisible="{Binding IsDestinationCountryCodeVisible}"/>
-                                                <Label Grid.Column="1" Text="{Binding DestinationAirportIATA}"
-                                                       FontSize="22" FontAttributes="Bold" TextColor="White"/>
-                                            </Grid>
-                                        </VerticalStackLayout>
+                                  
+                                            <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                                <Label Text="{Binding DepartureUtc, StringFormat='{0:HH:mm}'}"
+                                                       FontSize="24" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="White"/>
+                                                <HorizontalStackLayout Spacing="8">
+                                                    <Border StrokeShape="RoundRectangle 4"
+                                                            BackgroundColor="#2a2a2a"
+                                                            Padding="0"
+                                                            WidthRequest="28"
+                                                            HeightRequest="20"
+                                                            VerticalOptions="Center"
+                                                            IsVisible="{Binding IsOriginCountryCodeVisible}">
+                                                        <Image Source="{Binding OriginCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
+                                                               Aspect="AspectFill"/>
+                                                    </Border>
+                                                    <Label Text="{Binding OriginAirportIATA}"
+                                                           FontSize="20" 
+                                                           FontAttributes="Bold" 
+                                                           TextColor="White"
+                                                           VerticalOptions="Center"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
 
-                                        <!-- Price -->
-                                        <VerticalStackLayout Grid.Column="3" HorizontalOptions="End">
-                                            <Label Text="{Binding EconomyClassPrice, StringFormat='€{0:0.00}'}"
-                                                   FontSize="24" FontAttributes="Bold" TextColor="#D4A437"/>
-                                        </VerticalStackLayout>
-                                    </Grid>
+                                    
+                                            <Label Grid.Column="1" 
+                                                   Text="→" 
+                                                   FontSize="32" 
+                                                   TextColor="#D4A437"
+                                                   VerticalOptions="Center" 
+                                                   HorizontalOptions="Center"
+                                                   Margin="12,0"/>
 
-                                    <!-- Extra info -->
-                                    <Grid ColumnDefinitions="Auto, Auto, Auto" ColumnSpacing="10" Padding="10,0">
-                                        <Label Grid.Column="0" Text="{Binding Duration, StringFormat='• {0:h\\h\\ m\\m}'}"
-                                               FontSize="14" TextColor="#cccccc"/>
-                                        <Label Grid.Column="1" Text="• Nonstop" FontSize="14" TextColor="#cccccc"/>
-                                        <Label Grid.Column="2" Text="{Binding FlightNumber, StringFormat='• Flight {0}'}"
-                                               FontSize="14" TextColor="#cccccc"/>
-                                    </Grid>
+                                       
+                                            <VerticalStackLayout Grid.Column="2" Spacing="6">
+                                                <Label Text="{Binding ArrivalUtc, StringFormat='{0:HH:mm}'}"
+                                                       FontSize="24" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="White"/>
+                                                <HorizontalStackLayout Spacing="8">
+                                                    <Border StrokeShape="RoundRectangle 4"
+                                                            BackgroundColor="#2a2a2a"
+                                                            Padding="0"
+                                                            WidthRequest="28"
+                                                            HeightRequest="20"
+                                                            VerticalOptions="Center"
+                                                            IsVisible="{Binding IsDestinationCountryCodeVisible}">
+                                                        <Image Source="{Binding DestinationCountryCode, Converter={StaticResource CountryCodeToFlagUrlConverter}}"
+                                                               Aspect="AspectFill"/>
+                                                    </Border>
+                                                    <Label Text="{Binding DestinationAirportIATA}"
+                                                           FontSize="20" 
+                                                           FontAttributes="Bold" 
+                                                           TextColor="White"
+                                                           VerticalOptions="Center"/>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
 
-                                    <Grid ColumnDefinitions="*" Padding="10,10,10,10">
-                                        <Label Text="Vitoria Airlines"
-                                               FontSize="16" TextColor="#D4A437"/>
-                                    </Grid>
+                                      
+                                            <VerticalStackLayout Grid.Column="3" 
+                                                                 HorizontalOptions="End"
+                                                                 VerticalOptions="Center">
+                                                <Label Text="{Binding EconomyClassPrice, StringFormat='€{0:0.00}'}"
+                                                       FontSize="24" 
+                                                       FontAttributes="Bold" 
+                                                       TextColor="#D4A437"
+                                                       HorizontalOptions="End"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
 
-                                    <!-- Button to select return flight -->
-                                    <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FlightSearchResultsViewModel}}, Path=SelectReturnFlightCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Margin="10"
-                                            BackgroundColor="#D4A437"
-                                            TextColor="#0e0e0e"
-                                            CornerRadius="8"
-                                            FontAttributes="Bold">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Text" Value="Select Return Flight"/>
-                                                <Style.Triggers>
-                                                    <!-- Bind to IsSelected property of the current item -->
-                                                    <DataTrigger TargetType="Button"
-                                                                 Binding="{Binding IsSelected}"
-                                                                 Value="True">
-                                                        <Setter Property="Text" Value="Selected"/>
-                                                        <!-- Optional: Change background color for selected button state -->
-                                                        <!-- <Setter Property="BackgroundColor" Value="#8BC34A"/> -->
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </VerticalStackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                  
+                                        <BoxView HeightRequest="1" 
+                                                 BackgroundColor="#2a2a2a"
+                                                 Margin="20,0"/>
 
-                <!-- Round Trip Button -->
+                                  
+                                        <HorizontalStackLayout Padding="20,12" Spacing="16">
+                                            <Label Text="{Binding Duration, StringFormat='{0:h\\h\\ m\\m}'}"
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="·" 
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="Nonstop" 
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="·" 
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                            <Label Text="{Binding FlightNumber}"
+                                                   FontSize="13" 
+                                                   TextColor="#888888"/>
+                                        </HorizontalStackLayout>
+
+                                    
+                                        <Grid ColumnDefinitions="*,Auto" 
+                                              Padding="20,0,20,16"
+                                              ColumnSpacing="12">
+                                            <Label Text="Vitoria Airlines"
+                                                   FontSize="15" 
+                                                   TextColor="#D4A437"
+                                                   VerticalOptions="Center"
+                                                   FontAttributes="Bold"/>
+
+                                            <Button Grid.Column="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FlightSearchResultsViewModel}}, Path=SelectReturnFlightCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    BackgroundColor="#D4A437"
+                                                    TextColor="#0e0e0e"
+                                                    CornerRadius="10"
+                                                    FontAttributes="Bold"
+                                                    HeightRequest="44"
+                                                    WidthRequest="140">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Text" Value="Select"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Button"
+                                                                         Binding="{Binding IsSelected}"
+                                                                         Value="True">
+                                                                <Setter Property="Text" Value="✓ Selected"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+              
                 <Button Text="Book Selected Flights"
                         IsVisible="{Binding CanBookRoundTripFlights}"
                         Command="{Binding BookFlightsCommand}"
-                        Margin="0,20,0,0"
                         BackgroundColor="#4B0012"
                         TextColor="White"
-                        CornerRadius="8"
-                        FontAttributes="Bold"/>
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        HeightRequest="54"
+                        FontSize="16">                    
+                </Button>
             </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

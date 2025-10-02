@@ -33,7 +33,7 @@ public partial class RegisterViewModel : BaseViewModel
     [NotifyPropertyChangedFor(nameof(PasswordToggleIcon))]
     private bool isPasswordHidden = true;
 
-    public string PasswordToggleIcon => IsPasswordHidden ? "eye-slash.svg" : "eye.svg";
+    public string PasswordToggleIcon => IsPasswordHidden ? "eye_slash.svg" : "eye.svg";
 
 
     public RegisterViewModel(IAuthService authService)
@@ -143,6 +143,5 @@ public partial class RegisterViewModel : BaseViewModel
     private void TogglePasswordVisibility()
     {
         IsPasswordHidden = !IsPasswordHidden;
-        //PasswordToggleIcon = IsPasswordHidden ? "eye_open_icon.png" : "eye_closed_icon.png";
     }
 }

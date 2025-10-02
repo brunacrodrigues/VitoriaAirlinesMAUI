@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel.DataAnnotations;
 using VitoriaAirlinesMAUI.Model;
 using VitoriaAirlinesMAUI.Services.Interfaces;
-using VitoriaAirlinesMAUI.View;
 
 namespace VitoriaAirlinesMAUI.ViewModel
 {
@@ -70,12 +69,33 @@ namespace VitoriaAirlinesMAUI.ViewModel
 
                 await Shell.Current.DisplayAlert("Success", "Check your email for password reset instructions.", "OK");
 
-                await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
+                //await Shell.Current.GoToAsync($"///{nameof(LoginPage)}");
 
             }
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Command that opens the Yopmail website in the device's default browser.
+        /// </summary>
+        [RelayCommand]
+        private async Task OpenYopmailAsync()
+        {
+            try
+            {
+                var uri = new Uri("https://yopmail.com");
+                //await Launcher.OpenAsync(uri);
+                await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error opening Yopmail: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error", "Could not open Yopmail. Make sure you have a web browser installed.", "OK");
             }
         }
     }
